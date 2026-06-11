@@ -1,0 +1,66 @@
+{
+  "_petunjuk": "Salin ke input/YYYYMM/config.json lalu sesuaikan",
+  "period": "202606",
+  "bulan": "Juni",
+  "bulan_up": "JUNI",
+  "tahun": 2026,
+  "nama": "Lutfi Ihsan",
+  "jabatan": "Tenaga Teknis Implementasi Logika Sistem",
+  "output_filename": "Laporan Bulanan_Lutfi Ihsan - Juni 2026.docx",
+  "detail_docx": "detail_laporan.docx",
+  "detail_txt": "detail_github.txt",
+  "weekly_user_filter": "Lutfi",
+  "github": {
+    "repo": "setditjen-psdkp/api-sip",
+    "author": "lutfiihsan",
+    "date_ranges": [
+      "2026-06-01..2026-06-10",
+      "2026-06-11..2026-06-20",
+      "2026-06-21..2026-06-30"
+    ],
+    "fetch_if_missing": true,
+    "fetch_always": false
+  },
+  "tech": {
+    "language": "PHP v8.2",
+    "framework": "Laravel 11",
+    "repo_url": "https://github.com/setditjen-psdkp/api-sip"
+  },
+  "code_snippet": {
+    "title": "Contoh Cuplikan Kode Sumber",
+    "content": ""
+  },
+  "media": {
+    "github_screenshots": [
+      "image1.png",
+      "image2.png",
+      "image3.png",
+      "image4.png",
+      "image5.png",
+      "image6.png",
+      "image7.png",
+      "image8.png",
+      "image9.png",
+      "image10.png"
+    ],
+    "server_screenshots": [
+      "image11.jpeg",
+      "image12.png"
+    ],
+    "lampiran_screenshots": [
+      "image13.jpeg",
+      "image14.jpeg",
+      "image15.jpeg",
+      "image16.jpeg"
+    ]
+  },
+  "bab1": {
+    "pencapaian": "Pada bulan Juni 2026, ...",
+    "tantangan": "Selama penyusunan, ..."
+  },
+  "bab3": {
+    "kesimpulan_items": [
+      "Modul ... - ringkasan pencapaian"
+    ]
+  }
+}

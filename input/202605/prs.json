@@ -1,0 +1,647 @@
+[
+  {
+    "number": 5092,
+    "state": "merged",
+    "title": "fix: laporan berkalan dan dummy log inspeksi"
+  },
+  {
+    "number": 5093,
+    "state": "merged",
+    "title": "fix: filter kbli"
+  },
+  {
+    "number": 5095,
+    "state": "merged",
+    "title": "fix: status laporan berkala"
+  },
+  {
+    "number": 5097,
+    "state": "merged",
+    "title": "Fitur/master data: oss dan kkprl/pemantauan"
+  },
+  {
+    "number": 5098,
+    "state": "merged",
+    "title": "Fitur/master data: subjek_hukum_count dan userservice"
+  },
+  {
+    "number": 5102,
+    "state": "merged",
+    "title": "Fitur/master data: filter and export"
+  },
+  {
+    "number": 5103,
+    "state": "merged",
+    "title": "feat: proyek"
+  },
+  {
+    "number": 5104,
+    "state": "merged",
+    "title": "fix: search user/pegawai by nip"
+  },
+  {
+    "number": 5105,
+    "state": "merged",
+    "title": "fix: deadlock job permission update"
+  },
+  {
+    "number": 5106,
+    "state": "merged",
+    "title": "fix: minor rbac"
+  },
+  {
+    "number": 5110,
+    "state": "merged",
+    "title": "Fitur/master data: nib sinkron master"
+  },
+  {
+    "number": 5111,
+    "state": "merged",
+    "title": "fix: search nama izin"
+  },
+  {
+    "number": 5112,
+    "state": "merged",
+    "title": "fix: gagal unggah nib"
+  },
+  {
+    "number": 5116,
+    "state": "merged",
+    "title": "feat: improve special param"
+  },
+  {
+    "number": 5117,
+    "state": "merged",
+    "title": "feat: sinkron laporan tahunan per tahun"
+  },
+  {
+    "number": 5119,
+    "state": "merged",
+    "title": "feat: penambahan notif pengesahan by sistem"
+  },
+  {
+    "number": 5120,
+    "state": "merged",
+    "title": "fix: pj null"
+  },
+  {
+    "number": 5121,
+    "state": "merged",
+    "title": "fix: pj as array []"
+  },
+  {
+    "number": 5122,
+    "state": "merged",
+    "title": "fix: operator pusat tidak bisa lihat all realisasi"
+  },
+  {
+    "number": 5123,
+    "state": "closed",
+    "title": "fix: handle NIB validation with trimming and loose comparison in Obje…"
+  },
+  {
+    "number": 5124,
+    "state": "merged",
+    "title": "Fitur/master data: jumlah objek tidak sesuai dan validasi nib"
+  },
+  {
+    "number": 5125,
+    "state": "merged",
+    "title": "fix: dashboard input manual"
+  },
+  {
+    "number": 5126,
+    "state": "merged",
+    "title": "refactor: rbac"
+  },
+  {
+    "number": 5127,
+    "state": "merged",
+    "title": "fix: jumlah dashboard belum sesuai"
+  },
+  {
+    "number": 5128,
+    "state": "merged",
+    "title": "fix: akun herianus.paskah"
+  },
+  {
+    "number": 5129,
+    "state": "merged",
+    "title": "fix: notif kirim kode penelusuran sahkan dokumen hanya per objek saja"
+  },
+  {
+    "number": 5130,
+    "state": "merged",
+    "title": "fix: deadlock update user"
+  },
+  {
+    "number": 5131,
+    "state": "merged",
+    "title": "Stage: update user management dan wasrisk update"
+  },
+  {
+    "number": 5132,
+    "state": "merged",
+    "title": "Release: Update Production with Hotfixes"
+  },
+  {
+    "number": 5134,
+    "state": "merged",
+    "title": "fix: pilih jadwal tidak boleh assign pengawas dr upt yg berbeda"
+  },
+  {
+    "number": 5136,
+    "state": "merged",
+    "title": "refactor: pertanyaan inspksi pengawasan & add source type in korespondensi"
+  },
+  {
+    "number": 5137,
+    "state": "merged",
+    "title": "Stage: update"
+  },
+  {
+    "number": 5138,
+    "state": "merged",
+    "title": "fix: remove to array"
+  },
+  {
+    "number": 5139,
+    "state": "merged",
+    "title": "feat: implement input manual"
+  },
+  {
+    "number": 5141,
+    "state": "merged",
+    "title": "Modul/psdkp angka: profile organisasi"
+  },
+  {
+    "number": 5142,
+    "state": "merged",
+    "title": "feat: update access"
+  },
+  {
+    "number": 5145,
+    "state": "merged",
+    "title": "feat: add category filter type sc"
+  },
+  {
+    "number": 5146,
+    "state": "merged",
+    "title": "Modul/psdkp angka: improve sinkron asset, portal pegawai, kapal pengawas"
+  },
+  {
+    "number": 5147,
+    "state": "merged",
+    "title": "feat: add csv kapal pengawas"
+  },
+  {
+    "number": 5148,
+    "state": "merged",
+    "title": "update: gitignore"
+  },
+  {
+    "number": 5149,
+    "state": "merged",
+    "title": "fix: filter pokmaswas and sinkron korespondensi"
+  },
+  {
+    "number": 5150,
+    "state": "merged",
+    "title": "Modul/psdkp angka: sinkron foto pegawai "
+  },
+  {
+    "number": 5152,
+    "state": "merged",
+    "title": "fix: sinkron korespondensi dan penerima dokumen"
+  },
+  {
+    "number": 5154,
+    "state": "merged",
+    "title": "fix: foto kapal"
+  },
+  {
+    "number": 5155,
+    "state": "merged",
+    "title": "Modul/psdkp angka: sinkron pjlp dan adjust api main card"
+  },
+  {
+    "number": 5156,
+    "state": "merged",
+    "title": "feat: update tahun dinamis"
+  },
+  {
+    "number": 5157,
+    "state": "merged",
+    "title": "fix: read pjlp data"
+  },
+  {
+    "number": 5158,
+    "state": "merged",
+    "title": "fix: top 8 sebaran pegawai"
+  },
+  {
+    "number": 5159,
+    "state": "merged",
+    "title": "fix: pegawai nip kosong (all pegawai)"
+  },
+  {
+    "number": 5160,
+    "state": "merged",
+    "title": "feat: sinkron tanda daftar kapal"
+  },
+  {
+    "number": 5161,
+    "state": "merged",
+    "title": "fix: file surat tanda daftar"
+  },
+  {
+    "number": 5162,
+    "state": "merged",
+    "title": "fix: sinkron pegawai unit kerja kosong dan improve export pegawai"
+  },
+  {
+    "number": 5163,
+    "state": "merged",
+    "title": "feat: add rate limiter to sync portal pegawai"
+  },
+  {
+    "number": 5164,
+    "state": "merged",
+    "title": "feat: nonaktif pegawai unit kosong tp di gateway kosong"
+  },
+  {
+    "number": 5165,
+    "state": "merged",
+    "title": "fix: sinkron empty unit kerja"
+  },
+  {
+    "number": 5166,
+    "state": "merged",
+    "title": "Modul/psdkp angka"
+  },
+  {
+    "number": 5167,
+    "state": "merged",
+    "title": "Modul/psdkp angka: noaktif pegawai dan update api user seeder"
+  },
+  {
+    "number": 5170,
+    "state": "merged",
+    "title": "fix: jabatan tidak diketahui hidden dulu"
+  },
+  {
+    "number": 5171,
+    "state": "merged",
+    "title": "fix: jenis kelamin tidak terisi di hide aja"
+  },
+  {
+    "number": 5173,
+    "state": "merged",
+    "title": "feat: add jabatan pjlp"
+  },
+  {
+    "number": 5175,
+    "state": "merged",
+    "title": "fix: data piramida usia kosong"
+  },
+  {
+    "number": 5176,
+    "state": "merged",
+    "title": "Modul/psdkp angka: export profile organisasi"
+  },
+  {
+    "number": 5177,
+    "state": "merged",
+    "title": "feat: update export"
+  },
+  {
+    "number": 5178,
+    "state": "merged",
+    "title": "feat: apply camelCase"
+  },
+  {
+    "number": 5179,
+    "state": "merged",
+    "title": "update: message validation email export"
+  },
+  {
+    "number": 5184,
+    "state": "merged",
+    "title": "Modul/psdkp angka: pnbp dan denda"
+  },
+  {
+    "number": 5186,
+    "state": "merged",
+    "title": "feat: integrasi data pokmaswas json"
+  },
+  {
+    "number": 5187,
+    "state": "merged",
+    "title": "feat: main pie"
+  },
+  {
+    "number": 5190,
+    "state": "merged",
+    "title": "feat: apply filter sarana"
+  },
+  {
+    "number": 5191,
+    "state": "merged",
+    "title": "Modul/psdkp angka: keragaan"
+  },
+  {
+    "number": 5192,
+    "state": "merged",
+    "title": "feat: apply camelCase"
+  },
+  {
+    "number": 5193,
+    "state": "merged",
+    "title": "feat: missing jenis kelamin"
+  },
+  {
+    "number": 5194,
+    "state": "merged",
+    "title": "Modul/psdkp angka: implementasai data excel pengawasan sdkp"
+  },
+  {
+    "number": 5197,
+    "state": "merged",
+    "title": "fix: update gitignore"
+  },
+  {
+    "number": 5201,
+    "state": "merged",
+    "title": "feat: update list km"
+  },
+  {
+    "number": 5202,
+    "state": "merged",
+    "title": "fix: \"-\" filter"
+  },
+  {
+    "number": 5203,
+    "state": "merged",
+    "title": "Modul/psdkp angka: update kapal"
+  },
+  {
+    "number": 5207,
+    "state": "merged",
+    "title": "Modul/psdkp angka: implementasi dashboard poa"
+  },
+  {
+    "number": 5214,
+    "state": "merged",
+    "title": "fix: issue https://github.com/setditjen-psdkp/api-sip/issues/5209#iss…"
+  },
+  {
+    "number": 5215,
+    "state": "merged",
+    "title": "fix: Rentang Tahun Menu Operasi Armada dan Reset Dummy"
+  },
+  {
+    "number": 5216,
+    "state": "merged",
+    "title": "Modul/psdkp angka: fix hari operasi dan kapal diperiksa"
+  },
+  {
+    "number": 5217,
+    "state": "merged",
+    "title": "feat: add unit"
+  },
+  {
+    "number": 5218,
+    "state": "merged",
+    "title": "feat: improve sebaran satker, kapal, pegawai dan heatmap"
+  },
+  {
+    "number": 5219,
+    "state": "merged",
+    "title": "Perbaikan Racecondintion Pertanyaan Kepatuhan Teknis, Self Declare, PBUMKU"
+  },
+  {
+    "number": 5220,
+    "state": "merged",
+    "title": "[Hotfix] Optimize Inspection Performance & Mandatory BAP Validation"
+  },
+  {
+    "number": 5222,
+    "state": "merged",
+    "title": "Hotfix/fix n plus one"
+  },
+  {
+    "number": 5223,
+    "state": "merged",
+    "title": "fix: sanitize UTF-8 in PertanyaanKepatuhanTeknisService to prevent Ma…"
+  },
+  {
+    "number": 5224,
+    "state": "merged",
+    "title": "fix: add JSON_INVALID_UTF8_SUBSTITUTE to all API responses to prevent…"
+  },
+  {
+    "number": 5225,
+    "state": "merged",
+    "title": "fix: add values() to reindex collection after filter to prevent wrong…"
+  },
+  {
+    "number": 5226,
+    "state": "merged",
+    "title": "Modul/psdkp angka: wip keragaan dan jumlah pesawat"
+  },
+  {
+    "number": 5227,
+    "state": "merged",
+    "title": "feat: skat, rumpon, hari operasi"
+  },
+  {
+    "number": 5228,
+    "state": "merged",
+    "title": "hotfix: Fix Lock Wait Timeout saat simpan Berita Acara Pemeriksaan Tab 3 (SQLSTATE 1205)"
+  },
+  {
+    "number": 5229,
+    "state": "merged",
+    "title": "hotfix: Fix Lock Wait Timeout saat simpan Berita Acara Pemeriksaan Tab 3 (SQLSTATE 1205)"
+  },
+  {
+    "number": 5230,
+    "state": "merged",
+    "title": "sync: Sync production ke stage (hotfix lock wait timeout)"
+  },
+  {
+    "number": 5231,
+    "state": "merged",
+    "title": "hotfix: Fix Lock Wait Timeout saat generate dokumen Self Declare, PB UMKU, dan Kepatuhan Teknis"
+  },
+  {
+    "number": 5232,
+    "state": "merged",
+    "title": "hotfix: Prevent PDOException when DB::rollBack() without active transaction"
+  },
+  {
+    "number": 5233,
+    "state": "merged",
+    "title": "hotfix: Pre-fetch jenis_pertanyaan to prevent OSS API call holding DB Locks"
+  },
+  {
+    "number": 5235,
+    "state": "merged",
+    "title": "Hotfix: Prevent Race Condition on Dokumen Hasil Inspeksi Notification"
+  },
+  {
+    "number": 5236,
+    "state": "closed",
+    "title": "Hotfix: Prevent Race Condition on Dokumen Hasil Inspeksi Notification"
+  },
+  {
+    "number": 5238,
+    "state": "open",
+    "title": "hotfix: Resolve N+1 queries in SimpanDataSIUP job [Sentry-110914143]"
+  },
+  {
+    "number": 5239,
+    "state": "open",
+    "title": "hotfix: Optimize TandaiJenisSuratOpdlJob query performance [Sentry-110971267]"
+  },
+  {
+    "number": 5240,
+    "state": "open",
+    "title": "hotfix: Resolve TypeError in SIMPEG sync jobs [Sentry-116922281]"
+  },
+  {
+    "number": 5241,
+    "state": "open",
+    "title": "hotfix: Resolve TypeError in input-pengawas console command and service [Sentry-113754144]"
+  },
+  {
+    "number": 5242,
+    "state": "open",
+    "title": "hotfix: Add composite index to cc_operational_vessels_per_wpp table [Sentry-110680439]"
+  },
+  {
+    "number": 5243,
+    "state": "open",
+    "title": "hotfix: Optimize user search query using nested where clauses [Sentry-119333090]"
+  },
+  {
+    "number": 5244,
+    "state": "open",
+    "title": "hotfix: Eliminate N+1 queries in UserResourceIndex and UserResourceEksIndex [Sentry-118545132]"
+  },
+  {
+    "number": 5245,
+    "state": "open",
+    "title": "fix(gateway): fix N+1 query on pelaku usaha projects retrieval"
+  },
+  {
+    "number": 5246,
+    "state": "open",
+    "title": "fix(mail): handle connection and timeout errors in sendEmailNotification"
+  },
+  {
+    "number": 5247,
+    "state": "open",
+    "title": "hotfix: Handle connection timeouts in KejaksaanService [Sentry-113218511]"
+  },
+  {
+    "number": 5248,
+    "state": "merged",
+    "title": "Feat(korespondensi): Input Freetext Sender & Kombinasi Master Sender"
+  },
+  {
+    "number": 5249,
+    "state": "merged",
+    "title": "fix: kategori \"SPSUP dan SPSUK\" di Modul Penanganan Pelanggaran Menu Penetapan SA, belum muncul"
+  },
+  {
+    "number": 5250,
+    "state": "merged",
+    "title": "Fitur/master data: search in nib relation"
+  },
+  {
+    "number": 5251,
+    "state": "merged",
+    "title": "fix(wasrisk): generate dokumen BAP tidak dipanggil saat perusahaan Tidak Ada"
+  },
+  {
+    "number": 5252,
+    "state": "merged",
+    "title": "Modul/psdkp angka: kapal pengawas"
+  },
+  {
+    "number": 5253,
+    "state": "merged",
+    "title": "Fitur/master data: fix issue sync nib relation"
+  },
+  {
+    "number": 5254,
+    "state": "merged",
+    "title": "fix: Trend count uses unfiltered query unlike the total, Wildcard ver…"
+  },
+  {
+    "number": 5255,
+    "state": "merged",
+    "title": "fix: Duplicated filter logic in separate count query"
+  },
+  {
+    "number": 5257,
+    "state": "merged",
+    "title": "feat(sync): implement background job to download kkprl laporan files to bypass cors issue"
+  },
+  {
+    "number": 5258,
+    "state": "merged",
+    "title": "Feature/sync kkprl report files: fix failed download"
+  },
+  {
+    "number": 5259,
+    "state": "merged",
+    "title": "fix(sync): sanitize filename to prevent flysystem CorruptedPathDetect…"
+  },
+  {
+    "number": 5260,
+    "state": "merged",
+    "title": "fix(sync): relax local path sanitization and use robust rawurlencode …"
+  },
+  {
+    "number": 5261,
+    "state": "merged",
+    "title": "Feature/sync kkprl report files"
+  },
+  {
+    "number": 5262,
+    "state": "merged",
+    "title": "fix(sync): include absolute domain in local_path url generation"
+  },
+  {
+    "number": 5263,
+    "state": "merged",
+    "title": "fix(sync): resolve null url for dynamic tracker files by removing pre…"
+  },
+  {
+    "number": 5264,
+    "state": "merged",
+    "title": "Feature/sync kkprl report files: fix validasi download pemantauan tidak langsung"
+  },
+  {
+    "number": 5265,
+    "state": "merged",
+    "title": "fix(request): use kontakPegawai instead of user->email for superadmin…"
+  },
+  {
+    "number": 5266,
+    "state": "merged",
+    "title": "fix(sync): reliably combine EMAIL_DEV and user kontak email for super…"
+  },
+  {
+    "number": 5267,
+    "state": "merged",
+    "title": "Feature/sync kkprl report files: fix cursor bot"
+  },
+  {
+    "number": 5268,
+    "state": "merged",
+    "title": "Revert hotfix n plus one: batalkan optimize pertanyaan inspeksi"
+  }
+]

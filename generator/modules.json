@@ -1,0 +1,62 @@
+{
+  "module_intro_template": "Pada kegiatan ini Tenaga Teknis Implementasi Logika Sistem {verb} webservice {modul}, sebagai berikut:",
+  "prolog_template": "Pada sub-kegiatan ini, Tenaga Teknis Implementasi Logika Sistem {kegiatan} sebagai bagian dari pembaruan modul {modul}.{konteks}",
+  "modules": [
+    {
+      "id": "wasrisk",
+      "title": "Memperbaharui Webservice Modul WasRisk",
+      "verb": "memperbaharui",
+      "modul": "WasRisk",
+      "keywords": ["wasrisk", "inspeksi", "bap", "berita acara", "penjadwalan", "objek pengawasan", "pengesahan dokumen", "pertanyaan inspeksi", "pengawasan perizinan"]
+    },
+    {
+      "id": "user",
+      "title": "Memperbaharui Webservice Modul User Management",
+      "verb": "memperbaharui",
+      "modul": "User Management",
+      "keywords": ["update user", "user management", "permission", "deadlock", "pegawai", "role"]
+    },
+    {
+      "id": "korespondensi",
+      "title": "Memperbaharui Webservice Modul Korespondensi",
+      "verb": "memperbaharui",
+      "modul": "Korespondensi",
+      "keywords": ["korespondensi", "surat", "km korespondensi", "penerima surat", "portal sender"]
+    },
+    {
+      "id": "psdkp",
+      "title": "Penyusunan dan Pembaharuan Modul PSDKP Angka (Dashboard Pimpinan)",
+      "verb": "menyusun dan memperbaharui",
+      "modul": "PSDKP Angka",
+      "keywords": ["profil organisasi", "pnbp", "pokmaswas", "keragaan", "kapal pengawas", "operasi armada", "pengawasan sdkp", "dashboard pimpinan", "sinkron pegawai", "jenis kelamin", "pjlp", "sanksi pnbp"]
+    },
+    {
+      "id": "pelanggaran",
+      "title": "Memperbaharui Modul Penanganan Pelanggaran",
+      "verb": "memperbaharui",
+      "modul": "Penanganan Pelanggaran",
+      "keywords": ["penetapan sa", "penetapan sanksi", "spsup", "spsuk", "pelanggaran", "sanksi administrasi"]
+    },
+    {
+      "id": "master",
+      "title": "Modul Master Data / OSS / KKPRL",
+      "verb": "memperbaharui",
+      "modul": "Master Data",
+      "keywords": ["oss", "kkprl", "master data", "nib", "pelaku usaha", "sinkron nib", "laporan tahunan", "seamap", "cors"]
+    },
+    {
+      "id": "rbac",
+      "title": "Refactor RBAC",
+      "verb": "melakukan refactor",
+      "modul": "RBAC",
+      "keywords": ["rbac", "permission seeder", "hasrbacseeder", "role based"]
+    },
+    {
+      "id": "sentry",
+      "title": "Sentry Hotfixes",
+      "verb": "menyiapkan hotfix",
+      "modul": "Monitoring Sentry",
+      "keywords": ["sentry", "hotfix performa", "n+1", "query optimization"]
+    }
+  ]
+}
