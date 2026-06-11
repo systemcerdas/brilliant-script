@@ -4,7 +4,9 @@
   "description": "Otomasi registrasi SPMB Kabupaten Bogor dengan dekripsi respons API.",
   "private": true,
   "scripts": {
-    "spmb": "node spmb_register.mjs"
+    "spmb": "node spmb_register.mjs",
+    "spmb:login": "node spmb_register.mjs --check-login",
+    "spmb:run": "powershell -NoProfile -ExecutionPolicy Bypass -File run.ps1"
   },
   "repository": {
     "type": "git",
