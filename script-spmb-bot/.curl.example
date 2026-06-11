@@ -1,0 +1,9 @@
+fetch("https://spmb.bogorkab.go.id/v2/ppdb-service/akun/akunRegistrasi", {
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "content-type": "application/json",
+    "Referer": "https://spmb.bogorkab.go.id/register"
+  },
+  "body": "{\"payload\":\"<encrypted-payload-dari-devtools-network>\"}",
+  "method": "POST"
+});

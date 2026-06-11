@@ -1,0 +1,19 @@
+{
+  "name": "script-spmb-bot",
+  "version": "1.0.0",
+  "description": "Otomasi registrasi SPMB Kabupaten Bogor dengan dekripsi respons API.",
+  "private": true,
+  "scripts": {
+    "spmb": "node spmb_register.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrillianLabs/BrillianScript.git",
+    "directory": "script-spmb-bot"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.60.0"
+  }
+}
