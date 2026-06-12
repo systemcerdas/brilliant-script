@@ -37,7 +37,7 @@ def load_credentials():
 def send_bingo_email(subject, text_body, img_path):
     creds = load_credentials()
     # default email dari git config user
-    sender_email = creds.get("SMTP_USER", "lutficreativesys@gmail.com")
+    sender_email = creds.get("app_email", "lutficreativesys@gmail.com")
     app_password = creds.get("app_password", "")
     
     if not app_password:
