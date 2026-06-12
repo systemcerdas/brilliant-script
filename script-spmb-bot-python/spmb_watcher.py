@@ -39,6 +39,7 @@ def send_bingo_email(subject, text_body, img_path):
     # default email dari git config user
     sender_email = creds.get("app_email", "lutficreativesys@gmail.com")
     app_password = creds.get("app_password", "")
+    receiver_email = creds.get("app_receiver", sender_email)
     
     if not app_password:
         logging.warning("App Password tidak ditemukan di .cred, lewati kirim email.")
@@ -46,7 +47,7 @@ def send_bingo_email(subject, text_body, img_path):
 
     msg = MIMEMultipart()
     msg['From'] = sender_email
-    msg['To'] = sender_email # Kirim ke diri sendiri
+    msg['To'] = receiver_email
     msg['Subject'] = subject
 
     msg.attach(MIMEText(text_body, 'plain'))
