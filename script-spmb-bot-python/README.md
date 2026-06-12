@@ -135,8 +135,31 @@ sebelum periode pendaftaran dibuka. Artinya:
 
 ---
 
+---
+
+## Pemantauan Bot di VPS (Server)
+
+Karena bot telah di-deploy menggunakan **Systemd Service** dan **Gunicorn**, Anda dapat mengecek status bot kapan saja dengan dua cara:
+
+### 1. Melalui Web Dashboard
+Buka browser di HP/PC Anda dan masukkan alamat:
+👉 `http://<IP_VPS_ANDA>:8000` *(Contoh: http://43.134.108.19:8000)*
+
+Dashboard ini akan otomatis merefresh setiap 30 detik untuk memberikan informasi log terbaru dan bukti BINGO jika berhasil.
+
+### 2. Melalui SSH / Terminal VPS
+Jika butuh melakukan restart atau mematikan bot, masuk ke VPS Anda dan gunakan perintah berikut:
+- **Cek Status Bot**: `sudo systemctl status spmb_watcher`
+- **Restart Bot**: `sudo systemctl restart spmb_watcher`
+- **Mematikan Bot**: `sudo systemctl stop spmb_watcher`
+- **Cek Log Real-time**: `journalctl -u spmb_watcher -f`
+
+*(Ganti `spmb_watcher` menjadi `spmb_web` jika ingin memodifikasi service dashboard Gunicorn)*
+
+---
+
 ## Keamanan
 
-- Jangan commit `.data` (sudah di `.gitignore`).
-- `.data.example` hanya template — tidak berisi data nyata.
+- Jangan commit `.data` atau `.cred` (sudah di `.gitignore`).
 - File `spmb_output/` berisi screenshot yang mungkin memuat data pribadi — jaga kerahasiaannya.
+- Hindari menyebar *IP Address* dan Port Dashboard Anda ke publik.
