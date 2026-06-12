@@ -19,12 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-try:
-    from playwright_stealth import stealth_sync
-except ImportError:
-    print("[ERROR] playwright-stealth belum diinstall.")
-    print("  Jalankan: pip install playwright-stealth")
-    sys.exit(1)
+# Menggunakan argumen native Playwright untuk anti-deteksi
 
 # Import fungsi dari spmb_bot.py
 try:
@@ -62,7 +57,6 @@ def create_stealth_session(playwright):
         timezone_id="Asia/Jakarta",
     )
     page = context.new_page()
-    stealth_sync(page)  # Menghapus jejak "webdriver" / bot
     return browser, page
 
 def do_stealth_login_check(data: dict, playwright) -> tuple:
