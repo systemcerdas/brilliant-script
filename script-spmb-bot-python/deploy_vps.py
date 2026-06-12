@@ -57,22 +57,29 @@ def main():
         """
         run_command(ssh, repo_cmd)
 
-        # Upload file .data asli dari komputer lokal agar ada credentials
+        # Upload file .data dan .cred asli dari komputer lokal agar ada credentials
         local_data_path = ".data"
-        if os.path.exists(local_data_path):
-            print("\n[VPS] Mengunggah file .data ke server...")
-            sftp = ssh.open_sftp()
-            # pastikan folder di server sudah ada
-            remote_path = "/home/ubuntu/BrillianScript/script-spmb-bot-python/.data"
-            try:
-                sftp.put(local_data_path, remote_path)
+        local_cred_path = ".cred"
+        sftp = ssh.open_sftp()
+        try:
+            remote_data_path = "/home/ubuntu/BrillianScript/script-spmb-bot-python/.data"
+            remote_cred_path = "/home/ubuntu/BrillianScript/script-spmb-bot-python/.cred"
+            
+            if os.path.exists(local_data_path):
+                sftp.put(local_data_path, remote_data_path)
                 print("[VPS] Berhasil mengunggah .data")
-            except Exception as e:
-                print(f"[VPS] Gagal mengunggah .data: {e}")
-            finally:
-                sftp.close()
-        else:
-            print("[VPS] File .data tidak ditemukan di lokal, pastikan sudah dibuat.")
+            else:
+                print("[VPS] File .data tidak ditemukan di lokal.")
+                
+            if os.path.exists(local_cred_path):
+                sftp.put(local_cred_path, remote_cred_path)
+                print("[VPS] Berhasil mengunggah .cred")
+            else:
+                print("[VPS] File .cred tidak ditemukan di lokal.")
+        except Exception as e:
+            print(f"[VPS] Gagal mengunggah file kredensial: {e}")
+        finally:
+            sftp.close()
 
         # Setup Virtual Environment dan dependencies Python di VPS
         setup_python_cmd = """

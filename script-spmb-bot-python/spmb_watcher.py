@@ -18,6 +18,54 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+
+def load_credentials():
+    creds = {}
+    cred_path = Path(".cred")
+    if cred_path.exists():
+        with open(cred_path, "r") as f:
+            for line in f:
+                if "=" in line:
+                    k, v = line.strip().split("=", 1)
+                    creds[k.strip()] = v.strip().strip("'").strip('"')
+    return creds
+
+def send_bingo_email(subject, text_body, img_path):
+    creds = load_credentials()
+    # default email dari git config user
+    sender_email = creds.get("SMTP_USER", "lutficreativesys@gmail.com")
+    app_password = creds.get("app_password", "")
+    
+    if not app_password:
+        logging.warning("App Password tidak ditemukan di .cred, lewati kirim email.")
+        return
+
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = sender_email # Kirim ke diri sendiri
+    msg['Subject'] = subject
+
+    msg.attach(MIMEText(text_body, 'plain'))
+
+    if Path(img_path).exists():
+        with open(img_path, 'rb') as f:
+            img = MIMEImage(f.read())
+            img.add_header('Content-Disposition', 'attachment', filename=Path(img_path).name)
+            msg.attach(img)
+
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, app_password)
+        server.send_message(msg)
+        server.quit()
+        logging.info("📧 Email notifikasi BINGO berhasil dikirim!")
+    except Exception as e:
+        logging.error(f"Gagal mengirim email: {e}")
 
 # Menggunakan argumen native Playwright untuk anti-deteksi
 
@@ -208,6 +256,12 @@ def main():
                     logging.info("Bot otomatis mendaftarkan ulang, dan NIK Anda sekarang berhasil terdaftar.")
                     logging.info("Silakan login sekarang juga di browser Anda.")
                     logging.info("Bukti screenshot: spmb_output/SUCCESS_REGISTER.png")
+                    
+                    send_bingo_email(
+                        subject=f"BINGO! SPMB Registrasi Sukses ({data['nik']})",
+                        text_body=f"Akun NIK {data['nik']} berhasil didaftarkan ulang! Silakan login di web SPMB.",
+                        img_path="spmb_output/SUCCESS_REGISTER.png"
+                    )
                     break
                 else:
                     if "sudah ada" in str(reg_pesan).lower() or "already" in str(reg_pesan).lower():
@@ -221,6 +275,12 @@ def main():
                             logging.info("Sekolah sepertinya sudah MERESET/MENGAKTIFKAN akun Anda!")
                             logging.info("Silakan login manual sekarang juga di browser Anda.")
                             logging.info("Bukti screenshot: spmb_output/SUCCESS_LOGIN.png")
+                            
+                            send_bingo_email(
+                                subject=f"BINGO! SPMB Login Sukses ({data['nik']})",
+                                text_body=f"Akun NIK {data['nik']} berhasil diverifikasi dan bisa login! Silakan segera login di web SPMB.",
+                                img_path="spmb_output/SUCCESS_LOGIN.png"
+                            )
                             break
                         else:
                             if "Password Salah" in str(log_pesan):
