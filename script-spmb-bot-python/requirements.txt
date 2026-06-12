@@ -1,3 +1,5 @@
 playwright
 pycryptodome
+flask
+gunicorn
 playwright-stealth
