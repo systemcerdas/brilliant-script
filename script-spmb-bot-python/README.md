@@ -143,7 +143,7 @@ Karena bot telah di-deploy menggunakan **Systemd Service** dan **Gunicorn**, And
 
 ### 1. Melalui Web Dashboard
 Buka browser di HP/PC Anda dan masukkan alamat:
-👉 `http://<IP_VPS_ANDA>:8000` *(Contoh: http://43.134.108.19:8000)*
+👉 **https://spmb.senikode.com**
 
 Dashboard ini akan otomatis merefresh setiap 30 detik untuk memberikan informasi log terbaru dan bukti BINGO jika berhasil.
 
