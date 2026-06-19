@@ -50,7 +50,7 @@ php script/bot.php
 
 Pilih menu **04 — Mulai Bot**, lalu masukkan nomor WA.
 
-Butuh PHP 7.4+ dengan `curl` dan `readline` (Linux/macOS).
+Butuh PHP 7.4+ dengan `curl` dan `readline`. Mendukung **Windows**, Linux, dan macOS.
 
 Versi asli dengan access key marketing (`getcontact` / `bit.ly/getcontact-key`) ada di `script/bot_original.php`.
 

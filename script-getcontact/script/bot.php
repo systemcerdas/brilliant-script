@@ -5,7 +5,26 @@
 * Author asli: Rusmana-ID / Inject-ID
 */
 
-system("clear");
+function clear_screen() {
+	if (PHP_OS_FAMILY === 'Windows') {
+		system('cls');
+	} else {
+		system('clear');
+	}
+}
+
+function open_url($url) {
+	$safe = escapeshellarg($url);
+	if (PHP_OS_FAMILY === 'Windows') {
+		pclose(popen('start "" ' . $safe, 'r'));
+	} elseif (PHP_OS_FAMILY === 'Darwin') {
+		exec('open ' . $safe);
+	} else {
+		exec('xdg-open ' . $safe);
+	}
+}
+
+clear_screen();
 
 $k = "\033[33;1m";
 $h = "\033[32;1m";
@@ -40,27 +59,27 @@ echo $p."╰──────────────────────�
 
 $pil = readline($p."\n[".$h."•".$p."] Pilih No: ".$h);
 if($pil == "1"){
-	system("xdg-open https://t.me/config_geratis");
+	open_url("https://t.me/config_geratis");
 	sleep(1);
 	echo $p."[".$m."!".$p."] Run Lagi ketikan ".$k."php bot.php!\n\n";
 	exit();
 }elseif($pil == "2"){
-	system("xdg-open https://youtube.com/@Inject1D?feature=shared");
+	open_url("https://youtube.com/@Inject1D?feature=shared");
 	sleep(1);
 	echo $p."[".$m."!".$p."] Run Lagi ketikan ".$k."php bot.php!\n\n";
 	exit();
 }elseif($pil == "3"){
-	system("xdg-open https://tutorialinjectid.my.id");
+	open_url("https://tutorialinjectid.my.id");
 	sleep(1);
 	echo $p."[".$m."!".$p."] Run Lagi ketikan ".$k."php bot.php!\n\n";
 	exit();
 }elseif($pil == "5"){
-	system("xdg-open https://wa.me/6283879017166");
+	open_url("https://wa.me/6283879017166");
 	sleep(1);
 	echo $p."[".$m."!".$p."] Run Lagi ketikan ".$k."php bot.php!\n\n";
 	exit();
 }elseif($pil == "6"){
-	system("xdg-open https://t.me/config_geratis");
+	open_url("https://t.me/config_geratis");
 	sleep(1);
 	echo $p."[".$m."!".$p."] Run Lagi ketikan ".$k."php bot.php!\n\n";
 	exit();
@@ -70,7 +89,7 @@ if($pil == "1"){
 }elseif($pil == "4"){
 
 
-	system("clear");
+	clear_screen();
 
 	$k = "\033[33;1m";
 	$h = "\033[32;1m";
@@ -94,7 +113,7 @@ if($pil == "1"){
 	echo $p."╰────────────────────────────────╯\n";
 
 echo $p."╭─────────────────────╮\n";
-$no = readline($p."│ ".$h."•".$p." Input No WhatsApp".$m." : ".$h);
+$no = trim(readline($p."│ ".$h."•".$p." Input No WhatsApp".$m." : ".$h));
 echo $p."╰─────────────────────╯\n";
 
 $ck = preg_match("/0/i",$no);
@@ -175,7 +194,13 @@ echo $p."╰──────────────────────�
 
 $wa = $json->result->validation->link;
 $no = $json->result->phoneNumber->phoneNumber;
-system("xdg-open ".$wa);
+
+echo $p."╭────────────────────────────────╮\n";
+echo $p."│ ".$h."Link WhatsApp Verifikasi:".$p." │\n";
+echo $p."╰────────────────────────────────╯\n";
+echo $c.$wa."\n\n";
+open_url($wa);
+echo $p."[".$h."•".$p."] Buka link di atas, kirim pesan WA, tunggu hitung mundur.\n\n";
 
 echo $p."╭─────────────────────╮\n";
 for ($i = 10; $i >= 0; $i--) {
