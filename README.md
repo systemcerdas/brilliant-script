@@ -8,6 +8,7 @@ Repo: [github.com/BrillianLabs/BrillianScript](https://github.com/BrillianLabs/B
 |--------|-----------|
 | [script-laporan-bulanan](script-laporan-bulanan/) | Generator laporan bulanan Tenaga Teknis (Python + Word) |
 | [script-spmb-bot](script-spmb-bot/) | Bot registrasi & login SPMB Kab. Bogor (Playwright) |
+| [script-getcontact](script-getcontact/) | Bot cek tag GetContact + PHP decoder (reverse engineering) |
 
 ## Quick start
 
@@ -31,3 +32,12 @@ copy .data.example .data
 ```
 
 Dokumentasi lengkap: [script-spmb-bot/README.md](script-spmb-bot/README.md)
+
+### GetContact bot
+
+```powershell
+cd script-getcontact
+php getcontact/script/bot.php
+```
+
+Dokumentasi: [script-getcontact/README.md](script-getcontact/README.md)
