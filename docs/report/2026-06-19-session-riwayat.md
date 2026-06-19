@@ -238,7 +238,7 @@ python app.py
 | `f2416f9` | `feat(getcontact): add bot CLI and PHP decoder tool` |
 | `0559f64` | `refactor: split script-decoder and script-getcontact` |
 | `14511c0` | `refactor(spmb-bot): split into javascript and python subfolders` |
-| `9a73f6d` | `feat(getcontact): add web UI, clean CLI, and session report` |
+| `9ca353c` | `feat(getcontact): add web UI, clean CLI, and session report` |
 
 ---
 
