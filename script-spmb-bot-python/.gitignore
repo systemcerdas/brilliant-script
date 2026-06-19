@@ -1,9 +1,0 @@
-# .gitignore — script-spmb-bot-python
-.data*
-!.data.example
-spmb_output/
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/

@@ -1,0 +1,15 @@
+# JavaScript — secrets & generated
+javascript/.data
+javascript/.curl
+javascript/spmb_output/
+javascript/node_modules/
+
+# Python — secrets & generated
+python/.data
+python/.curl
+python/.cred
+python/spmb_output/
+python/.venv/
+python/check_vps.py
+python/__pycache__/
+python/*.pyc

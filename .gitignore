@@ -18,8 +18,13 @@ Thumbs.db
 *_temp.docx
 ~$*.docx
 
-# SPMB bot — data sensitif lokal
-script-spmb-bot/.data
-script-spmb-bot/.curl
-script-spmb-bot/spmb_output/
-script-spmb-bot/node_modules/
+# SPMB bot — data sensitif & generated
+script-spmb-bot/javascript/.data
+script-spmb-bot/javascript/.curl
+script-spmb-bot/javascript/spmb_output/
+script-spmb-bot/javascript/node_modules/
+script-spmb-bot/python/.data
+script-spmb-bot/python/.curl
+script-spmb-bot/python/.cred
+script-spmb-bot/python/spmb_output/
+script-spmb-bot/python/.venv/

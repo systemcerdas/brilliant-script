@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BrillianLabs/BrillianScript.git",
-    "directory": "script-spmb-bot"
+    "directory": "script-spmb-bot/javascript"
   },
   "license": "ISC",
   "type": "commonjs",

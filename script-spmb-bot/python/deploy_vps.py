@@ -62,8 +62,8 @@ def main():
         local_cred_path = ".cred"
         sftp = ssh.open_sftp()
         try:
-            remote_data_path = "/home/ubuntu/BrillianScript/script-spmb-bot-python/.data"
-            remote_cred_path = "/home/ubuntu/BrillianScript/script-spmb-bot-python/.cred"
+            remote_data_path = "/home/ubuntu/BrillianScript/script-spmb-bot/python/.data"
+            remote_cred_path = "/home/ubuntu/BrillianScript/script-spmb-bot/python/.cred"
             
             if os.path.exists(local_data_path):
                 sftp.put(local_data_path, remote_data_path)
@@ -83,7 +83,7 @@ def main():
 
         # Setup Virtual Environment dan dependencies Python di VPS
         setup_python_cmd = """
-        cd /home/ubuntu/BrillianScript/script-spmb-bot-python
+        cd /home/ubuntu/BrillianScript/script-spmb-bot/python
         python3 -m venv .venv
         source .venv/bin/activate
         pip install --upgrade pip
@@ -95,7 +95,7 @@ def main():
 
         # Menyiapkan Systemd Service untuk Watcher & Web Dashboard (Gunicorn)
         service_cmd = """
-        cd /home/ubuntu/BrillianScript/script-spmb-bot-python
+        cd /home/ubuntu/BrillianScript/script-spmb-bot/python
         
         # 1. Service untuk SPMB Watcher
         cat << 'EOF' | sudo tee /etc/systemd/system/spmb_watcher.service
@@ -105,9 +105,9 @@ After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/home/ubuntu/BrillianScript/script-spmb-bot-python
-Environment="PATH=/home/ubuntu/BrillianScript/script-spmb-bot-python/.venv/bin"
-ExecStart=/home/ubuntu/BrillianScript/script-spmb-bot-python/.venv/bin/python spmb_watcher.py
+WorkingDirectory=/home/ubuntu/BrillianScript/script-spmb-bot/python
+Environment="PATH=/home/ubuntu/BrillianScript/script-spmb-bot/python/.venv/bin"
+ExecStart=/home/ubuntu/BrillianScript/script-spmb-bot/python/.venv/bin/python spmb_watcher.py
 Restart=always
 
 [Install]
@@ -122,9 +122,9 @@ After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/home/ubuntu/BrillianScript/script-spmb-bot-python
-Environment="PATH=/home/ubuntu/BrillianScript/script-spmb-bot-python/.venv/bin"
-ExecStart=/home/ubuntu/BrillianScript/script-spmb-bot-python/.venv/bin/gunicorn -w 1 -b 0.0.0.0:8000 app:app
+WorkingDirectory=/home/ubuntu/BrillianScript/script-spmb-bot/python
+Environment="PATH=/home/ubuntu/BrillianScript/script-spmb-bot/python/.venv/bin"
+ExecStart=/home/ubuntu/BrillianScript/script-spmb-bot/python/.venv/bin/gunicorn -w 1 -b 0.0.0.0:8000 app:app
 Restart=always
 
 [Install]

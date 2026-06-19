@@ -1,22 +1,22 @@
 # SPMB Bogor Kab — Bot Registrasi & Login (Python)
 
-Versi Python dari [script-spmb-bot](../script-spmb-bot/README.md).  
+Versi Python — lihat juga [javascript/](../javascript/README.md) (Node.js).
+Bagian dari [script-spmb-bot](../README.md) · [BrillianScript](../../README.md)
+
 Menggunakan **Playwright Python** + **pycryptodome** — tidak memerlukan Node.js.
-
-Bagian dari [BrillianScript](../README.md) · repo: [BrillianLabs/BrillianScript](https://github.com/BrillianLabs/BrillianScript)
-
----
 
 ## Struktur
 
 ```
-script-spmb-bot-python/
-├── README.md
+script-spmb-bot/python/
 ├── spmb_bot.py         # skrip utama (registrasi + login + audit)
-├── setup_python.ps1    # installer dependensi (jalankan sekali)
-├── .data.example       # template konfigurasi (di-commit)
+├── spmb_watcher.py     # watcher VPS
+├── app.py              # dashboard Gunicorn
+├── setup_python.ps1    # installer dependensi
+├── .data.example       # template konfigurasi
 ├── .data               # data asli — gitignored
-└── spmb_output/        # log JSON & screenshot — gitignored
+├── .cred               # kredensial VPS — gitignored
+└── spmb_output/        # log & screenshot — gitignored
 ```
 
 ---
@@ -24,7 +24,7 @@ script-spmb-bot-python/
 ## Setup
 
 ```powershell
-cd script-spmb-bot-python
+cd script-spmb-bot/python
 
 # 1. Install dependensi (sekali saja)
 .\setup_python.ps1
@@ -160,6 +160,6 @@ Jika butuh melakukan restart atau mematikan bot, masuk ke VPS Anda dan gunakan p
 
 ## Keamanan
 
-- Jangan commit `.data` atau `.cred` (sudah di `.gitignore`).
+- Jangan commit `.data`, `.curl`, atau `.cred` (lihat [../.gitignore](../.gitignore)).
 - File `spmb_output/` berisi screenshot yang mungkin memuat data pribadi — jaga kerahasiaannya.
 - Hindari menyebar *IP Address* dan Port Dashboard Anda ke publik.

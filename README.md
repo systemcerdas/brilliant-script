@@ -7,7 +7,7 @@ Repo: [github.com/BrillianLabs/BrillianScript](https://github.com/BrillianLabs/B
 | Folder | Deskripsi |
 |--------|-----------|
 | [script-laporan-bulanan](script-laporan-bulanan/) | Generator laporan bulanan Tenaga Teknis (Python + Word) |
-| [script-spmb-bot](script-spmb-bot/) | Bot registrasi & login SPMB Kab. Bogor (Playwright) |
+| [script-spmb-bot](script-spmb-bot/) | Bot registrasi & login SPMB Kab. Bogor (JS + Python) |
 | [script-decoder](script-decoder/) | Decoder PHP terenkripsi (php-encryptor) |
 | [script-getcontact](script-getcontact/) | Bot cek tag GetContact |
 
@@ -24,12 +24,15 @@ python generator/generate.py 202605
 ### SPMB bot
 
 ```powershell
-cd script-spmb-bot
+# JavaScript
+cd script-spmb-bot/javascript
 copy .data.example .data
-# edit .data
-
 .\run.ps1 --check-login
-.\run.ps1
+
+# Python
+cd script-spmb-bot/python
+copy .data.example .data
+python spmb_bot.py --audit
 ```
 
 Dokumentasi: [script-spmb-bot/README.md](script-spmb-bot/README.md)
