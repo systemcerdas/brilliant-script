@@ -1,0 +1,140 @@
+:root {
+  --bg: #0f1419;
+  --card: #1a2332;
+  --text: #e7ecf3;
+  --muted: #8b9cb3;
+  --accent: #25d366;
+  --accent2: #3b82f6;
+  --danger: #f87171;
+  --border: #2a3648;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1b2a40, var(--bg));
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.card {
+  width: min(480px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #243044;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+.subtitle { margin: 0 0 1.25rem; color: var(--muted); font-size: 0.9rem; }
+
+.panel { display: grid; gap: 0.75rem; }
+.hidden { display: none !important; }
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+input {
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #121a26;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+button, .btn-wa {
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+#btn-start {
+  background: linear-gradient(135deg, var(--accent2), #6366f1);
+  color: white;
+}
+
+.btn-wa {
+  display: block;
+  background: var(--accent);
+  color: #052e16;
+}
+
+.btn-secondary {
+  background: #243044;
+  color: var(--text);
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.phone-display { margin: 0; color: var(--muted); }
+
+.countdown {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.bar {
+  height: 8px;
+  background: #121a26;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#countdown-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  transition: width 1s linear;
+}
+
+.result-summary { margin: 0; }
+
+.tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.tag-list li {
+  padding: 0.65rem 0.8rem;
+  background: #121a26;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}

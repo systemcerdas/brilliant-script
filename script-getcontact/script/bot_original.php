@@ -1,7 +1,8 @@
 <?php
 /**
-* GetContact CLI Bot — versi bersih (tanpa access key marketing).
-* Salinan asli dengan key gate: bot_original.php
+* GetContact CLI Bot — salinan asli hasil reverse (dengan access key marketing).
+* Key hardcoded: getcontact | Link: bit.ly/getcontact-key
+* Versi bersih tanpa key: bot.php
 * Author asli: Rusmana-ID / Inject-ID
 */
 
@@ -92,6 +93,50 @@ if($pil == "1"){
 	echo $p."│  ".$p."Author: Rusmana-ID   ".$p."         │\n";
 	echo $p."│         ".$p."Youtube: Inject-ID".$p."     │\n";
 	echo $p."╰────────────────────────────────╯\n";
+
+	echo $p."╭────────────────────────────────╮\n";
+	echo $p."│".$o."Link Key ".$m.": ".$o."bit.ly/getcontact-key".$p."│\n";
+	echo $p."╰────────────────────────────────╯\n";
+	echo $p."╭─────────────────────╮\n";
+	$ky = readline($p."│ ".$h."•".$p." Input Key".$m." : ".$h);
+	echo $p."╰─────────────────────╯\n";
+	if($ky == "getcontact"){
+		echo $p."╭─────────────────────╮\n";
+		echo $p."│   ".$h."🔑 Key Success!".$p."   │\n";
+		echo $p."╰─────────────────────╯\n\n";
+		sleep(1);
+		system("clear");
+
+		$k = "\033[33;1m";
+		$h = "\033[32;1m";
+		$p = "\033[37;1m";
+		$m = "\033[31;1m";
+		$c = "\033[35;1m";
+		$o = "\033[30;1m";
+
+		echo $p."
+		██████╗ ███████╗████████╗ CONTACT
+		██╔════╝ ██╔════╝╚══██╔══╝
+		██║  ███╗█████╗     ██║
+		██║   ██║██╔══╝     ██║
+		╚██████╔╝███████╗   ██║
+		╚═════╝ ╚══════╝   ╚═╝   \n";
+
+		echo $p."╭────────────────────────────────╮\n";
+		echo $p."│   ".$h."Bot Cek Nomor Yang Di Save".$p."   │\n";
+		echo $p."│  ".$p."Author: Rusmana-ID   ".$p."         │\n";
+		echo $p."│         ".$p."Youtube: Inject-ID".$p."     │\n";
+		echo $p."╰────────────────────────────────╯\n";
+
+	}else{
+		echo $p."╭─────────────────────╮\n";
+		echo $p."│    ".$m."🔑 Key Salah!".$p."    │\n";
+		echo $p."╰─────────────────────╯\n\n";
+		echo $p."[".$m."!".$p."] Salin Link Key Di Atas \n";
+		echo $p."[".$m."!".$p."] Lalu Tempel Di Google \n";
+		echo $p."[".$m."!".$p."] Terus Cari Key Nya Disana \n\n";
+		exit();
+	}
 
 echo $p."╭─────────────────────╮\n";
 $no = readline($p."│ ".$h."•".$p." Input No WhatsApp".$m." : ".$h);

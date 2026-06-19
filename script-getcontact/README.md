@@ -1,59 +1,71 @@
 # script-getcontact
 
-Bot CLI PHP untuk cek **tag/nama** yang disimpan pengguna GetContact pada nomor WhatsApp.
+Bot untuk cek **tag/nama** yang disimpan pengguna GetContact pada nomor WhatsApp.
 
-Berdasarkan [rusmanaid/getcontact](https://github.com/rusmanaid/getcontact) — hasil reverse. File terenkripsi asli ada di [script-decoder/bahan/getcontact](../script-decoder/bahan/getcontact/).
+Tersedia dua versi:
+- **CLI** — `script/bot.php` (PHP)
+- **Web** — `web/` (Flask) → [web/README.md](web/README.md)
+
+Berdasarkan [rusmanaid/getcontact](https://github.com/rusmanaid/getcontact) — hasil reverse.
 
 ## Struktur
 
 ```
 script-getcontact/
 ├── script/
-│   └── bot.php       # Bot siap pakai
+│   ├── bot.php          # CLI bersih (tanpa access key)
+│   └── bot_original.php # Salinan asli reverse (dengan key gate)
+├── web/
+│   ├── app.py           # Server Flask
+│   ├── getcontact.py    # Logic API
+│   ├── requirements.txt
+│   ├── templates/
+│   └── static/
 └── docs/
-    └── ANALISIS.md   # Analisis teknis
+    └── ANALISIS.md
 ```
 
-## Quick start
+## Quick start — Web (disarankan)
+
+Dokumentasi lengkap: [web/README.md](web/README.md)
+
+```powershell
+cd script-getcontact/web
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Buka http://localhost:5050
+
+1. Masukkan nomor WA (`08xx...`)
+2. Klik **Buka WhatsApp** → kirim pesan verifikasi
+3. Tunggu hitung mundur → hasil tag muncul otomatis
+
+## Quick start — CLI
 
 ```powershell
 cd script-getcontact
 php script/bot.php
 ```
 
-## Persyaratan
+Pilih menu **04 — Mulai Bot**, lalu masukkan nomor WA.
 
-| Komponen | Versi |
-|----------|-------|
-| PHP | 7.4+ |
-| Ekstensi | `curl`, `readline` |
-| OS | Linux / macOS (`xdg-open`) |
+Butuh PHP 7.4+ dengan `curl` dan `readline` (Linux/macOS).
 
-## Cara pakai
+Versi asli dengan access key marketing (`getcontact` / `bit.ly/getcontact-key`) ada di `script/bot_original.php`.
 
-1. Jalankan `php script/bot.php`
-2. Pilih menu **04** — Mulai bot
-3. Key: `getcontact`
-4. Input nomor WA format `08xx...`
-5. Verifikasi via WhatsApp
-6. Lihat daftar tag/nama
-
-## Decode ulang dari file terenkripsi
-
-Gunakan tool decoder terpisah:
+## Decode ulang
 
 ```powershell
 cd script-decoder
 python script/decode_php.py bahan/getcontact/bot.php
-# hasil: output/getcontact/clean/decoded.php
 ```
-
-Salin ke `script-getcontact/script/bot.php` jika perlu update.
 
 ## Catatan
 
 - Bukan produk resmi GetContact.
-- Penggunaan scraping dapat melanggar ToS layanan.
+- Verifikasi WhatsApp wajib — nomor yang dicek harus bisa menerima pesan WA.
+- Penggunaan otomatisasi dapat melanggar ToS GetContact.
 
 ## Kredit
 

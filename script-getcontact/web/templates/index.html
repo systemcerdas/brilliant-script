@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GetContact Cek Tag</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <header>
+      <p class="badge">BrillianScript</p>
+      <h1>GetContact Cek Tag</h1>
+      <p class="subtitle">Cek nama/tag yang menyimpan nomor WhatsApp di GetContact</p>
+    </header>
+
+    <section id="step-form" class="panel">
+      <label>
+        Nomor WhatsApp
+        <input id="phone" type="tel" placeholder="081234567890" inputmode="numeric" autofocus>
+      </label>
+      <button id="btn-start" type="button">Mulai Verifikasi</button>
+      <p id="form-error" class="error hidden"></p>
+    </section>
+
+    <section id="step-verify" class="panel hidden">
+      <h2>Verifikasi WhatsApp</h2>
+      <p>Buka link di bawah, kirim pesan verifikasi, lalu tunggu hitung mundur selesai.</p>
+      <p class="phone-display">Nomor: <strong id="display-phone"></strong></p>
+      <a id="wa-link" class="btn-wa" href="#" target="_blank" rel="noopener">Buka WhatsApp</a>
+      <div class="countdown">
+        <span id="countdown-label">Menunggu verifikasi</span>
+        <div class="bar"><div id="countdown-bar"></div></div>
+        <span id="countdown-sec">10</span>
+      </div>
+      <p id="verify-error" class="error hidden"></p>
+    </section>
+
+    <section id="step-result" class="panel hidden">
+      <h2>Hasil</h2>
+      <p class="result-summary">Disimpan oleh <strong id="tag-count">0</strong> orang</p>
+      <ul id="tag-list" class="tag-list"></ul>
+      <button id="btn-reset" type="button" class="btn-secondary">Cek Nomor Lain</button>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
