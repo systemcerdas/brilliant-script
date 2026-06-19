@@ -2,7 +2,7 @@
 
 > Repo: [rusmanaid/getcontact](https://github.com/rusmanaid/getcontact)  
 > Tanggal analisis: 2026-06-19 07:42 UTC  
-> Tool: `decode_bot.py` (Python 3)
+> Tool: [script-decoder](../../script-decoder/) — `decode_php.py`
 
 ---
 
@@ -143,36 +143,26 @@ Hasil akhir: parse elemen `<div class="pt-text">...</div>` untuk setiap tag/nama
 
 ---
 
-## 7. Struktur folder hasil
+## 7. Struktur project
 
 ```
-decoder/
-├── bahan/
-│   └── bot.php                  ← file terenkripsi (input)
-├── script/
-│   └── decode_bot.py            ← tool decoder
-└── output/
-    ├── ANALISIS.md              ← dokumen ini
-    ├── bot_decoded.php          ← kode mentah hasil dekripsi API
-    ├── bot_deobfuscated_strings.php
-    ├── decrypt_payload.json
-    ├── decrypt_payload_full.json
-    ├── comment_decoded.txt
-    └── clean/
-        ├── bot.php              ← kode dekripsi, dirapikan
-        └── bot_obfuscated.php
+script-decoder/                    # Tool decode (umum)
+├── bahan/getcontact/bot.php       ← file terenkripsi
+├── script/decode_php.py
+└── output/getcontact/             ← hasil decode
 
-getcontact/
-└── script/
-    └── bot.php                  ← salinan clean, siap dijalankan
+script-getcontact/                 # Bot GetContact
+├── script/bot.php                 ← bot siap pakai
+└── docs/ANALISIS.md               ← dokumen ini
 ```
 
 ---
 
 ## 8. Cara decode ulang
 
-```bash
-python decoder/script/decode_bot.py
+```powershell
+cd script-decoder
+python script/decode_php.py bahan/getcontact/bot.php
 ```
 
 ---

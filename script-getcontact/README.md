@@ -1,53 +1,59 @@
 # script-getcontact
 
-Bot CLI PHP untuk cek tag/nama yang disimpan di GetContact, plus tool Python untuk reverse kode terenkripsi.
+Bot CLI PHP untuk cek **tag/nama** yang disimpan pengguna GetContact pada nomor WhatsApp.
 
-Berdasarkan [rusmanaid/getcontact](https://github.com/rusmanaid/getcontact) — hasil reverse oleh BrillianLabs.
+Berdasarkan [rusmanaid/getcontact](https://github.com/rusmanaid/getcontact) — hasil reverse. File terenkripsi asli ada di [script-decoder/bahan/getcontact](../script-decoder/bahan/getcontact/).
 
 ## Struktur
 
 ```
 script-getcontact/
-├── decoder/
-│   ├── script/decode_bot.py    # Tool decoder
-│   ├── bahan/bot.php           # File terenkripsi (input)
-│   └── output/                 # Hasil decode (gitignored, regeneratable)
-├── getcontact/
-│   └── script/bot.php          # Bot siap pakai
+├── script/
+│   └── bot.php       # Bot siap pakai
 └── docs/
-    ├── getcontact.md
-    ├── decoder.md
-    └── ANALISIS.md
+    └── ANALISIS.md   # Analisis teknis
 ```
 
 ## Quick start
 
 ```powershell
-# Jalankan bot
-php getcontact/script/bot.php
-
-# Decode ulang dari file terenkripsi
-python decoder/script/decode_bot.py
+cd script-getcontact
+php script/bot.php
 ```
 
 ## Persyaratan
 
-| Tool | Kebutuhan |
-|------|-----------|
-| Bot | PHP 7.4+, ekstensi `curl` & `readline` |
-| Decoder | Python 3.8+, koneksi internet |
+| Komponen | Versi |
+|----------|-------|
+| PHP | 7.4+ |
+| Ekstensi | `curl`, `readline` |
+| OS | Linux / macOS (`xdg-open`) |
 
-## Dokumentasi
+## Cara pakai
 
-- [docs/getcontact.md](docs/getcontact.md) — panduan bot
-- [docs/decoder.md](docs/decoder.md) — panduan decoder
-- [docs/ANALISIS.md](docs/ANALISIS.md) — analisis teknis obfuscation
+1. Jalankan `php script/bot.php`
+2. Pilih menu **04** — Mulai bot
+3. Key: `getcontact`
+4. Input nomor WA format `08xx...`
+5. Verifikasi via WhatsApp
+6. Lihat daftar tag/nama
+
+## Decode ulang dari file terenkripsi
+
+Gunakan tool decoder terpisah:
+
+```powershell
+cd script-decoder
+python script/decode_php.py bahan/getcontact/bot.php
+# hasil: output/getcontact/clean/decoded.php
+```
+
+Salin ke `script-getcontact/script/bot.php` jika perlu update.
 
 ## Catatan
 
-- `decoder/bahan/bot.php` = versi asli terenkripsi.
-- `getcontact/script/bot.php` = versi clean hasil reverse.
 - Bukan produk resmi GetContact.
+- Penggunaan scraping dapat melanggar ToS layanan.
 
 ## Kredit
 
