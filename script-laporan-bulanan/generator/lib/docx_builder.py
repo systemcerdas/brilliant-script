@@ -4,79 +4,159 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Inches, Pt
-from .config import input_dir, output_dir, template_dir
+from docx.shared import Inches, Pt, Emu
+import copy
+from .config import input_dir, output_dir, template_dir, weekly_report_path
 from .parser import load_kegiatan_tambahan, parse_detail_github, parse_weekly_report
 
-def clear_body(doc):
-    body = doc.element.body
-    for child in list(body):
-        if child.tag.split("}")[-1] != "sectPr":
-            body.remove(child)
+FONT = "Arial"
+SIZE_BODY    = None   # inherit from Normal style
+SIZE_HEADING = Pt(14)
+SIZE_LAMPIRAN     = Pt(58)
+SIZE_TABLE_CELL   = Pt(10)
+LINE_SPACING      = 1.5   # 1.5 lines
+
+def _set_line_spacing(pf, spacing=LINE_SPACING):
+    pf.line_spacing = spacing
+
+def _run(p, text, bold=False, size=None, italic=False):
+    r = p.add_run(text)
+    r.font.name = FONT
+    r.bold = bold
+    r.italic = italic
+    if size:
+        r.font.size = size
+    return r
 
 def enable_update_fields(doc):
     update = OxmlElement("w:updateFields")
     update.set(qn("w:val"), "true")
     doc.settings.element.append(update)
 
-def add_text(doc, text, bold=False):
+def add_body(doc, text, align=WD_ALIGN_PARAGRAPH.JUSTIFY):
     p = doc.add_paragraph()
-    r = p.add_run(text)
-    r.bold = bold
-    r.font.name = "Calibri"
-    r.font.size = Pt(11)
+    p.style = doc.styles["Normal"]
+    p.alignment = align
+    _set_line_spacing(p.paragraph_format)
+    _run(p, text)
+    return p
 
-def add_center(doc, text, bold=False, size=11):
+def add_module_heading(doc, text):
     p = doc.add_paragraph()
+    p.style = doc.styles["Normal"]
+    _set_line_spacing(p.paragraph_format)
+    _run(p, text, bold=True, size=SIZE_HEADING)
+    return p
+
+def add_activity_name(doc, text):
+    p = doc.add_paragraph(style="List Paragraph")
+    _set_line_spacing(p.paragraph_format)
+    p.paragraph_format.left_indent = Pt(14)
+    _run(p, text, bold=False, size=SIZE_HEADING)
+    return p
+
+def add_lampiran_heading(doc):
+    p = doc.add_paragraph()
+    p.style = doc.styles["Normal"]
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_line_spacing(p.paragraph_format)
+    _run(p, "LAMPIRAN", bold=True, size=SIZE_LAMPIRAN)
+    return p
+
+# -------------------------------------------------------------------
+# Activity table (2-col: label | content)
+# -------------------------------------------------------------------
+
+def _cell_run(cell, text, bold=False):
+    for p in cell.paragraphs:
+        for r in p.runs:
+            r.clear()
+    p = cell.paragraphs[0]
+    _set_line_spacing(p.paragraph_format)
     r = p.add_run(text)
+    r.font.name = FONT
+    r.font.size = SIZE_TABLE_CELL
     r.bold = bold
-    r.font.size = Pt(size)
-    r.font.name = "Calibri"
+    return r
 
-def add_heading(doc, text, level=1):
-    doc.add_heading(text, level=level)
+def _add_cell_para(cell, text, bold=False):
+    p = cell.add_paragraph()
+    _set_line_spacing(p.paragraph_format)
+    r = p.add_run(text)
+    r.font.name = FONT
+    r.font.size = SIZE_TABLE_CELL
+    r.bold = bold
+    return p
 
-def add_toc(doc):
-    add_heading(doc, "DAFTAR ISI", 1)
-    p = doc.add_paragraph()
-    r = p.add_run()
-    for el_type, text in [("begin", None), ("instr", ' TOC \\o "1-3" \\h \\z \\u '), ("separate", None), ("end", None)]:
-        if el_type == "instr":
-            instr = OxmlElement("w:instrText")
-            instr.set(qn("xml:space"), "preserve")
-            instr.text = text
-            r._r.append(instr)
-        else:
-            fld = OxmlElement("w:fldChar")
-            fld.set(qn("w:fldCharType"), el_type)
-            r._r.append(fld)
-    add_text(doc, "(Klik kanan Daftar Isi -> Update Field jika nomor halaman belum muncul)")
+def add_activity_table(doc, activity):
+    COL0_W = Emu(1028700)   # ~0.81 in
+    COL1_W = Emu(5382260)   # ~4.24 in
 
-def add_activity(doc, activity):
-    add_text(doc, activity["subtitle"], bold=True)
-    if activity.get("prolog"):
-        add_text(doc, "Prolog")
-        add_text(doc, activity["prolog"])
-    if activity.get("deskripsi"):
-        add_text(doc, "Deskripsi Pekerjaan")
-        add_text(doc, activity["deskripsi"])
-    add_text(doc, "Detail Perubahan")
-    if activity.get("files"):
-        add_text(doc, "File yang Diubah:")
-        for f in activity["files"]:
-            add_text(doc, f)
-    if activity.get("utama"):
-        add_text(doc, "Perubahan Utama:")
-        for u in activity["utama"]:
-            add_text(doc, u)
-    if activity.get("manfaat"):
-        add_text(doc, "Manfaat:")
-        for m in activity["manfaat"]:
-            add_text(doc, m)
-    add_text(doc, "Dokumentasi")
-    for d in activity.get("docs") or []:
-        add_text(doc, d)
+    deskripsi_text = activity.get("deskripsi", "")
+    files = activity.get("files", [])
+    utama = activity.get("utama", [])
+    manfaat = activity.get("manfaat", [])
+
+    table = doc.add_table(rows=2, cols=2)
+    table.style = "Table Grid"
+
+    for row in table.rows:
+        row.cells[0].width = COL0_W
+        row.cells[1].width = COL1_W
+
+    _cell_run(table.rows[0].cells[0], "Deskripsi Pekerjaan", bold=True)
+    c1 = table.rows[0].cells[1]
+    _cell_run(c1, deskripsi_text, bold=False)
+
+    if files or utama or manfaat:
+        _add_cell_para(c1, "", bold=False)
+        _add_cell_para(c1, "Detail Perubahan", bold=True)
+        if files:
+            _add_cell_para(c1, "File yang Diubah:", bold=True)
+            for f in files:
+                _add_cell_para(c1, f)
+        if utama:
+            _add_cell_para(c1, "Perubahan Utama:", bold=True)
+            for u in utama:
+                _add_cell_para(c1, u)
+        if manfaat:
+            _add_cell_para(c1, "Manfaat:", bold=True)
+            for m in manfaat:
+                _add_cell_para(c1, m)
+
+    _cell_run(table.rows[1].cells[0], "Dokumentasi", bold=True)
+    docs = activity.get("docs", [])
+    c1_dok = table.rows[1].cells[1]
+    if docs:
+        _cell_run(c1_dok, docs[0], bold=False)
+        for d in docs[1:]:
+            _add_cell_para(c1_dok, d)
+    else:
+        _cell_run(c1_dok, "-", bold=False)
+
+    doc.add_paragraph()  # spacer after table
+
+# -------------------------------------------------------------------
+# Builders for BAB II and Lampiran
+# -------------------------------------------------------------------
+def build_bab2(doc, modules):
+    for mod in modules:
+        add_module_heading(doc, mod["title"])
+        if mod["intro"]:
+            add_body(doc, mod["intro"])
+        for act in mod["activities"]:
+            add_activity_name(doc, act["subtitle"])
+            if act["prolog"]:
+                add_body(doc, act["prolog"])
+            add_activity_table(doc, act)
+
+def build_kegiatan_tambahan(doc, kegiatan):
+    if not kegiatan:
+        return
+    add_module_heading(doc, "Kegiatan Tambahan")
+    for act in kegiatan:
+        add_activity_name(doc, act["judul"])
+        add_activity_table(doc, act)
 
 def ensure_media(media_dir, template_path):
     if media_dir.exists() and any(media_dir.iterdir()):
@@ -94,172 +174,128 @@ def add_image_if_exists(doc, media_dir, name, width=Inches(6.0)):
         return True
     return False
 
-def add_pr_table(doc, prs):
+def build_manajemen_kode(doc, config, prs, media_dir):
+    add_module_heading(doc, "Manajemen Kode Sumber")
+    bulan = config.get("bulan", "")
+    tahun = config.get("tahun", "")
+    repo = config["github"]["repo"]
+    author = config["github"]["author"]
+    
+    add_activity_name(doc, f"Sinkronisasi Kode Sumber pada Repositori Github {bulan} {tahun}")
+    add_body(doc, f"Pada bulan {bulan} {tahun} dilakukan {len(prs)} pull request (author: {author}) di https://github.com/{repo}")
+    
+    if not add_image_if_exists(doc, media_dir, "image3.jpeg", width=Inches(6.0)):
+        add_body(doc, "[Screenshot GitHub terlampir]")
+    
+    add_activity_name(doc, f"Sinkronisasi Kode Sumber pada Server Development {bulan} {tahun}")
+    add_body(doc, "Sinkronisasi kode sumber API ke server development setelah perubahan di-merge.")
+    if not add_image_if_exists(doc, media_dir, "image4.jpeg", width=Inches(6.0)):
+        add_body(doc, "[Screenshot server terlampir]")
+
+def build_lampiran(doc, config, prs, weekly_rows, media_dir):
+    bulan = config.get("bulan", "")
+    tahun = config.get("tahun", "")
+    add_lampiran_heading(doc)
+    doc.add_paragraph()
+    
+    # Weekly Report
+    add_module_heading(doc, f"Lampiran 1 – Weekly Report {bulan} {tahun}")
+    tbl = doc.add_table(rows=1, cols=7)
+    tbl.style = "Table Grid"
+    for i, h in enumerate(["Weekly Cat", "Date Range", "Date", "Activity", "Output", "User", "Related Doc"]):
+        _cell_run(tbl.rows[0].cells[i], h, bold=True)
+    for row in weekly_rows:
+        cells = tbl.add_row().cells
+        _cell_run(cells[0], row.get("minggu", ""))
+        _cell_run(cells[1], row.get("date_range", ""))
+        _cell_run(cells[2], row.get("tanggal", ""))
+        _cell_run(cells[3], row.get("aktivitas", ""))
+        _cell_run(cells[4], row.get("output", ""))
+        _cell_run(cells[5], row.get("user", ""))
+        _cell_run(cells[6], row.get("dokumentasi", ""))
+    
+    # Code source & PR
+    doc.add_page_break()
+    add_module_heading(doc, "Lampiran 2 – Kode Sumber & PR List")
+    add_body(doc, f"Bahasa Pemrograman\t: {config['tech']['language']}")
+    add_body(doc, f"Framework\t\t\t: {config['tech']['framework']}")
+    add_body(doc, f"Repositori\t\t\t: {config['tech']['repo_url']}")
+    
+    add_body(doc, f"Daftar Pull Request Bulan {bulan} {tahun} (Author: {config['github']['author']}) — Total: {len(prs)} PR")
+    
     table = doc.add_table(rows=1, cols=4)
     table.style = "Table Grid"
     for i, h in enumerate(["No", "PR #", "Judul", "Status"]):
-        table.rows[0].cells[i].text = h
+        _cell_run(table.rows[0].cells[i], h, bold=True)
     for idx, pr in enumerate(prs, 1):
         row = table.add_row().cells
-        row[0].text = str(idx)
-        row[1].text = str(pr["number"])
-        row[2].text = pr["title"]
-        row[3].text = pr["state"].upper()
+        _cell_run(row[0], str(idx))
+        _cell_run(row[1], str(pr["number"]))
+        _cell_run(row[2], pr["title"])
+        _cell_run(row[3], pr["state"].upper())
 
-def build_bab1(doc, config):
-    bab1 = config.get("bab1", {})
-    bulan, tahun = config["bulan"], config["tahun"]
-    add_heading(doc, "BAB I", 1)
-    add_heading(doc, "PENDAHULUAN", 1)
-    add_text(doc, "Latar Belakang", bold=True)
-    add_text(doc, bab1.get("latar_belakang_pembuka", f"Laporan kemajuan pekerjaan bulan {bulan} {tahun}."))
-    add_text(doc, bab1.get("latar_belakang_sistem", "Latar belakang implementasi logika sistem pengawasan SDKP."))
-    if bab1.get("pencapaian"):
-        add_text(doc, bab1["pencapaian"])
-    if bab1.get("tantangan"):
-        add_text(doc, bab1["tantangan"])
-    add_text(doc, "Maksud dan Tujuan", bold=True)
-    add_text(doc, bab1.get("maksud_tujuan", "Memberikan pemahaman transparan mengenai kemajuan pekerjaan."))
-    add_text(doc, "Lingkup Pekerjaan", bold=True)
-    for item in bab1.get("lingkup", ["Merancang Arsitektur Backend", "Pemrograman dan Pengembangan", "Manajemen Basis Data", "Manajemen GitHub", "Pembaruan API Server Development", "Koordinasi Tim Frontend", "Manajemen Error dan Logging"]):
-        add_text(doc, item)
+    if not add_image_if_exists(doc, media_dir, "image12.jpeg"):
+        doc.add_paragraph("[Screenshot GitHub PR terlampir]")
 
-def build_bab2(doc, modules):
-    add_heading(doc, "BAB II", 1)
-    add_heading(doc, "HASIL KEGIATAN", 1)
-    for mod in modules:
-        if mod["title"].upper().startswith("RINGKASAN"):
-            continue
-        add_heading(doc, mod["title"], 2)
-        if mod.get("intro"):
-            add_text(doc, mod["intro"])
-        for act in mod["activities"]:
-            add_activity(doc, act)
-
-def build_kegiatan_tambahan(doc, kegiatan):
-    if not kegiatan:
-        return
-    add_heading(doc, "Kegiatan Tambahan", 2)
-    for item in kegiatan:
-        add_heading(doc, item["judul"], 3)
-        add_text(doc, item.get("deskripsi", ""))
-        if item.get("link"):
-            add_text(doc, item["link"])
-
-def build_manajemen_kode(doc, config, prs, media_dir):
-    bulan, tahun = config["bulan"], config["tahun"]
-    gh, media = config["github"], config.get("media", {})
-    add_heading(doc, "Manajemen Kode Sumber", 2)
-    add_text(doc, f"Singkronisasi Kode Sumber pada Repositori Github {bulan} {tahun}")
-    add_text(doc, f"Pada bulan {bulan} {tahun} dilakukan {len(prs)} pull request (author: {gh['author']}) di https://github.com/{gh['repo']}")
-    add_text(doc, "Gambar Tangkapan Layar Terkait Proses Sinkronisasi Kode Sumber di Github")
-    for img in media.get("github_screenshots", [f"image{i}.png" for i in range(1, 11)]):
-        add_image_if_exists(doc, media_dir, img)
-    add_text(doc, f"Singkronisasi Kode Sumber pada Server Development {bulan} {tahun}")
-    add_text(doc, "Sinkronisasi kode sumber API ke server development setelah perubahan di-merge.")
-    add_text(doc, "Gambar Tangkapan Layar Terkait Proses Integrasi API di Server PSDKP")
-    for img in media.get("server_screenshots", ["image11.jpeg", "image12.png"]):
-        add_image_if_exists(doc, media_dir, img)
-
-def build_bab3(doc, config, prs):
-    bab3, bulan = config.get("bab3", {}), config["bulan"]
-    add_heading(doc, "BAB III", 1)
-    add_heading(doc, "PENUTUP", 1)
-    add_text(doc, "Kesimpulan", bold=True)
-    add_text(doc, bab3.get("kesimpulan_pembuka", f"Kemajuan implementasi logika sistem pada bulan {bulan} {config['tahun']}."))
-    for item in bab3.get("kesimpulan_items", [f"Manajemen GitHub   {len(prs)} pull request pada bulan {bulan}"]):
-        add_text(doc, item)
-    add_text(doc, "Saran", bold=True)
-    for s in bab3.get("saran_items", ["Peningkatan Keamanan Sistem", "Pengalaman Pengguna", "Sistem Pemantauan via Sentry", "Evaluasi Feedback Pengguna"]):
-        add_text(doc, s)
-
-def build_lampiran(doc, config, prs, weekly_rows, media_dir):
-    bulan, tech = config["bulan"], config.get("tech", {})
-    snippet, media = config.get("code_snippet", {}), config.get("media", {})
-    doc.add_page_break()
-    add_heading(doc, "LAMPIRAN", 1)
-    add_text(doc, f"Lampiran 1 Weekly Report {bulan} {config['tahun']}", bold=True)
-    if weekly_rows:
-        tbl = doc.add_table(rows=1, cols=5)
-        tbl.style = "Table Grid"
-        for i, h in enumerate(["Minggu", "Tanggal", "Hari", "Aktivitas", "Dokumentasi"]):
-            tbl.rows[0].cells[i].text = h
-        for row in weekly_rows:
-            cells = tbl.add_row().cells
-            cells[0].text = row.get("minggu", "")
-            cells[1].text = row.get("tanggal", "")
-            cells[2].text = row.get("hari", "")
-            cells[3].text = row.get("aktivitas", "")
-            cells[4].text = row.get("dokumentasi", "")
-    doc.add_paragraph()
-    add_text(doc, "Lampiran 2. Kode Sumber", bold=True)
-    add_text(doc, f"Bahasa Pemrograman : {tech.get('language', 'PHP v8.2')}")
-    add_text(doc, f"Framework : {tech.get('framework', 'Laravel 11')}")
-    add_text(doc, f"Repositori : {tech.get('repo_url', 'https://github.com/setditjen-psdkp/api-sip')}")
-    add_text(doc, f"Daftar Pull Request Bulan {bulan} {config['tahun']} (Author: {config['github']['author']}) - Total: {len(prs)} PR")
-    add_pr_table(doc, prs)
-    doc.add_paragraph()
-    add_text(doc, "Gambar Tangkapan Layar Repositori Github dan Pull Request")
-    for img in media.get("lampiran_screenshots", ["image13.jpeg", "image14.jpeg", "image15.jpeg", "image16.jpeg"]):
-        add_image_if_exists(doc, media_dir, img)
-    if snippet.get("content"):
-        add_text(doc, snippet.get("title", "Contoh Cuplikan Kode Sumber"))
-        p = doc.add_paragraph()
-        r = p.add_run(snippet["content"])
-        r.font.name = "Courier New"
-        r.font.size = Pt(9)
-    add_text(doc, f"Lampiran 3 Detail Laporan GitHub {bulan} {config['tahun']}", bold=True)
-    add_text(doc, f"File DOCX: {config.get('detail_docx', '')}")
-    if config.get("detail_txt"):
-        add_text(doc, f"File TXT: {config.get('detail_txt', '')}")
+# -------------------------------------------------------------------
+# The Core Splicing engine
+# -------------------------------------------------------------------
+def splice_elements(marker_p, builder_funcs, args_list):
+    temp_doc = Document()
+    for func, args in zip(builder_funcs, args_list):
+        func(temp_doc, *args)
+    
+    curr = marker_p._element
+    for el in temp_doc.element.body:
+        if el.tag.endswith('sectPr'): continue
+        new_el = copy.deepcopy(el)
+        curr.addnext(new_el)
+        curr = new_el
+    marker_p._element.getparent().remove(marker_p._element)
 
 def build_report(config, prs):
-    period = config["period"]
+    period   = config["period"]
     inp, tpl = input_dir(period), template_dir()
-    media_dir, template_path = tpl / "media", tpl / "laporan_template.docx"
-    output_path = output_dir(period) / config["output_filename"]
+    media_dir    = tpl / "media"
+    template_path = tpl / "laporan_template.docx"
+    output_path  = output_dir(period) / config["output_filename"]
+
     ensure_media(media_dir, template_path)
-    modules = parse_detail_github(inp / "detail_github.md") if (inp / "detail_github.md").exists() else []
-    weekly_rows = parse_weekly_report(inp / "weekly_report.md", config.get("weekly_user_filter", "Lutfi"))
-    kegiatan = load_kegiatan_tambahan(inp / "kegiatan_tambahan.json")
+    modules      = parse_detail_github(inp / "detail_github.md") if (inp / "detail_github.md").exists() else []
+    weekly_rows  = parse_weekly_report(
+        weekly_report_path(period), 
+        config.get("weekly_user_filter", "Lutfi"),
+        repo_filter=config.get("github", {}).get("repo")
+    )
+    kegiatan     = load_kegiatan_tambahan(inp / "kegiatan_tambahan.json")
+
     doc = Document(str(template_path))
-    clear_body(doc)
     enable_update_fields(doc)
-    bulan_up = config.get("bulan_up", config["bulan"].upper())
-    nama = config.get("nama", "Lutfi Ihsan")
-    for _ in range(3):
-        doc.add_paragraph()
-    add_center(doc, "LAPORAN KEMAJUAN", True, 14)
-    add_center(doc, "TENAGA TEKNIS IMPLEMENTASI LOGIKA SISTEM", True, 14)
-    add_center(doc, "DALAM RANGKA PENGELOLAAN DATA PENGAWASAN SDKP", True, 12)
-    add_center(doc, f"BULAN {bulan_up} {config['tahun']}", True, 12)
-    doc.add_paragraph()
-    add_center(doc, nama)
-    add_center(doc, config.get("jabatan", "Tenaga Teknis Implementasi Logika Sistem"))
-    doc.add_paragraph()
-    add_center(doc, "DIREKTORAT JENDERAL PENGAWASAN SUMBER DAYA")
-    add_center(doc, "KELAUTAN DAN PERIKANAN")
-    add_center(doc, "KEMENTERIAN KELAUTAN DAN PERIKANAN")
-    add_center(doc, str(config["tahun"]))
-    doc.add_page_break()
-    add_toc(doc)
-    doc.add_page_break()
-    add_heading(doc, "Kata Pengantar", 1)
-    add_text(doc, config.get("kata_pengantar_1", f"Laporan kemajuan bulan {config['bulan']} {config['tahun']}."))
-    add_text(doc, config.get("kata_pengantar_2", "Memantau, menyusun, mengimplementasikan, dan memelihara sistem pengawasan SDKP."))
-    add_text(doc, f"Jakarta,    {config['bulan']} {config['tahun']}")
-    add_text(doc, "Hormat Kami,")
-    doc.add_paragraph()
-    add_text(doc, nama)
-    doc.add_page_break()
-    build_bab1(doc, config)
-    doc.add_page_break()
-    build_bab2(doc, modules)
-    doc.add_page_break()
-    build_kegiatan_tambahan(doc, kegiatan)
-    build_manajemen_kode(doc, config, prs, media_dir)
-    doc.add_page_break()
-    build_bab3(doc, config, prs)
-    build_lampiran(doc, config, prs, weekly_rows, media_dir)
+
+    # Simple placeholder replacement on the original doc template
+    bulan_up = config.get('bulan_up', config['bulan'].upper())
+    replacements = {
+        'Mei 2026': f"{config['bulan']} {config['tahun']}",
+        'MEI 2026': f"{bulan_up} {config['tahun']}"
+    }
+    for p in doc.paragraphs:
+        for old_t, new_t in replacements.items():
+            if old_t in p.text:
+                for r in p.runs:
+                    if old_t in r.text:
+                        r.text = r.text.replace(old_t, new_t)
+    
+    bab2_p = None
+    lampiran_p = None
+    for p in doc.paragraphs:
+        if '{{ BAB2 }}' in p.text: bab2_p = p
+        if '{{ LAMPIRAN }}' in p.text: lampiran_p = p
+        
+    if bab2_p:
+        splice_elements(bab2_p, [build_bab2, build_kegiatan_tambahan, build_manajemen_kode], [(modules,), (kegiatan,), (config, prs, media_dir)])
+    
+    if lampiran_p:
+        splice_elements(lampiran_p, [build_lampiran], [(config, prs, weekly_rows, media_dir)])
+
     doc.save(str(output_path))
     return output_path

@@ -29,12 +29,12 @@ def main():
     parser.add_argument("--output", default=None)
     args = parser.parse_args()
 
-    from lib.config import project_root
+    from lib.config import project_root, weekly_report_path
 
     config = load_config(args.period)
     inp = input_dir(args.period)
     out_path = Path(args.output) if args.output else inp / "detail_github.md"
-    weekly_path = inp / "weekly_report.md"
+    weekly_path = weekly_report_path(args.period)
 
     if args.from_weekly:
         md = build_from_weekly(weekly_path, config, config.get("weekly_user_filter", "Lutfi"))

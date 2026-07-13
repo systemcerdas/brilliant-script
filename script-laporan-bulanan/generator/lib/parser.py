@@ -70,7 +70,7 @@ def parse_detail_github(path):
             act.pop("_section", None)
     return modules
 
-def parse_weekly_report(path, user_filter="Lutfi"):
+def parse_weekly_report(path, user_filter="Lutfi", repo_filter=None):
     if not path.exists():
         return []
     rows = []
@@ -81,13 +81,28 @@ def parse_weekly_report(path, user_filter="Lutfi"):
         if len(cols) < 6:
             continue
         weekly, date_range, day, activity, output, user = cols[:6]
+        related_doc = cols[6] if len(cols) > 6 else ""
         if not activity.strip():
             continue
         if user_filter and user_filter.lower() not in user.lower() and "tim" not in user.lower():
             continue
+            
+        if repo_filter:
+            # Jika ada link github tapi BUKAN ke repo_filter, abaikan
+            if "github.com" in related_doc and repo_filter not in related_doc:
+                continue
+            # Jika aktivitas/output spesifik ke project lain, bisa difilter di sini juga
+            # (Tapi berhubung W4 adalah full project lain tanpa link repo, 
+            #  lebih aman jika user menghapus baris tersebut dari md-nya atau kita abaikan yang tak ber-link jika repo_filter aktif?
+            # Tidak, karena beberapa aktivitas mungkin memang tak ber-link.
+            # Tapi kita bisa abaikan aktivitas khusus: "Wedding Invitation", "sdn-kacangan", "VPS"
+            if any(p in activity for p in ["Wedding Invitation", "sdn-kacangan", "VPS Storage"]):
+                continue
+            
         rows.append({
             "minggu": weekly, "tanggal": date_range, "hari": day,
             "aktivitas": _clean_md(activity), "dokumentasi": _clean_md(output)[:120],
+            "related_doc": related_doc
         })
     return rows
 

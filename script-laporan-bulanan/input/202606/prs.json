@@ -1,0 +1,302 @@
+[
+  {
+    "number": 5270,
+    "state": "merged",
+    "title": "Fitur/master data: update seeder dan filter role"
+  },
+  {
+    "number": 5271,
+    "state": "merged",
+    "title": "Fitur/master data: fix permission"
+  },
+  {
+    "number": 5272,
+    "state": "merged",
+    "title": "fix: permission by user"
+  },
+  {
+    "number": 5273,
+    "state": "merged",
+    "title": "fix: permission"
+  },
+  {
+    "number": 5274,
+    "state": "merged",
+    "title": "fix: permission"
+  },
+  {
+    "number": 5275,
+    "state": "merged",
+    "title": "🚀 Update Stage from Master"
+  },
+  {
+    "number": 5277,
+    "state": "merged",
+    "title": "Fix: Check if flag_type exists before dropping in migration"
+  },
+  {
+    "number": 5278,
+    "state": "merged",
+    "title": "fix: operator pusat belum menerima email"
+  },
+  {
+    "number": 5279,
+    "state": "merged",
+    "title": "fix: operator pusat belum menerima email"
+  },
+  {
+    "number": 5280,
+    "state": "merged",
+    "title": "Fitur/master data: fix inspeksi dan export"
+  },
+  {
+    "number": 5281,
+    "state": "merged",
+    "title": "Fitur/master data: fix export and inspeksi"
+  },
+  {
+    "number": 5282,
+    "state": "merged",
+    "title": "Update PemantauanDetailResource: set penanggung_jawab and operator to…"
+  },
+  {
+    "number": 5283,
+    "state": "merged",
+    "title": "Fitur/master data"
+  },
+  {
+    "number": 5284,
+    "state": "merged",
+    "title": "Pr/merge master to stage"
+  },
+  {
+    "number": 5285,
+    "state": "merged",
+    "title": "fix: return empty array for penanggung_jawab instead of null to preve…"
+  },
+  {
+    "number": 5286,
+    "state": "merged",
+    "title": "fix: return empty array for penanggung_jawab instead of null to preve…"
+  },
+  {
+    "number": 5287,
+    "state": "merged",
+    "title": "Pr/merge master to stage"
+  },
+  {
+    "number": 5288,
+    "state": "merged",
+    "title": "fix: specific error message for corrupt PDF on upload"
+  },
+  {
+    "number": 5289,
+    "state": "merged",
+    "title": "fix: backport hotfixes from production to master (TypeError  + lock timeout fixes)"
+  },
+  {
+    "number": 5290,
+    "state": "merged",
+    "title": "docs: tambah laporan riwayat fix TypeError urutan dan backport hotfix…"
+  },
+  {
+    "number": 5291,
+    "state": "merged",
+    "title": "Fix: Perbaikan Bug Validasi Tab 3 BAP dan Keterangan Predikat Kepatuhan"
+  },
+  {
+    "number": 5292,
+    "state": "merged",
+    "title": "fix: resolve parent rollup bug and add docs"
+  },
+  {
+    "number": 5293,
+    "state": "merged",
+    "title": "fix: resolve leftover merge conflict markers in tests"
+  },
+  {
+    "number": 5294,
+    "state": "merged",
+    "title": "hotfix: backport kepatuhan teknis and BAP validation bug fixes"
+  },
+  {
+    "number": 5295,
+    "state": "merged",
+    "title": "Fix: Penanganan Data Dummy pada Sinkronisasi KKPRL berdasarkan Subjek Hukum"
+  },
+  {
+    "number": 5296,
+    "state": "merged",
+    "title": "Fix: Penyesuaian Indikator Rentang Tahun Laporan Berkala di SDK"
+  },
+  {
+    "number": 5297,
+    "state": "merged",
+    "title": "Chore: Penonaktifan Data Dummy Log Inspeksi SDK"
+  },
+  {
+    "number": 5298,
+    "state": "merged",
+    "title": "Fix: Menyembunyikan Log Inspeksi dengan Null di SDK"
+  },
+  {
+    "number": 5299,
+    "state": "merged",
+    "title": "feat: implement unified dashboard export for all categories"
+  },
+  {
+    "number": 5300,
+    "state": "merged",
+    "title": "Fix: Perbaikan Sorting Kolom Provinsi dan Kabupaten/Kota di Objek Pengawasan"
+  },
+  {
+    "number": 5301,
+    "state": "merged",
+    "title": "Fix: Perbaikan Timeout dan Deteksi File Sinkronisasi OSS (#5180)"
+  },
+  {
+    "number": 5302,
+    "state": "merged",
+    "title": "Fix: Tambahan Alias Sorting .name dari UI Vuetify (#5021)"
+  },
+  {
+    "number": 5303,
+    "state": "merged",
+    "title": "Fix: Perbaikan Fail-Fast Timeout dan PDF Stripping pada OSS (#5180)"
+  },
+  {
+    "number": 5304,
+    "state": "merged",
+    "title": "Fix: Penanganan Spasi Panjang (Long Whitespace) pada Deteksi PDF OSS (#5180)"
+  },
+  {
+    "number": 5306,
+    "state": "merged",
+    "title": "Release: Update Production from Stage (2026-06-14)"
+  },
+  {
+    "number": 5308,
+    "state": "merged",
+    "title": "Hotfix: Resolusi Server Error 500 saat Simpan Kepatuhan Teknis"
+  },
+  {
+    "number": 5310,
+    "state": "merged",
+    "title": "Hotfix: Import Class Auth pada Kepatuhan Teknis"
+  },
+  {
+    "number": 5311,
+    "state": "merged",
+    "title": "Docs: Laporan Perbaikan Bug Kepatuhan Teknis"
+  },
+  {
+    "number": 5312,
+    "state": "merged",
+    "title": "fix: Allow Pengawas Perikanan Dit. PPSDP Pusat lintas UPT"
+  },
+  {
+    "number": 5432,
+    "state": "merged",
+    "title": "feat: default to latest available period if year or month is empty fo…"
+  },
+  {
+    "number": 5433,
+    "state": "merged",
+    "title": "Modul/psdkp angka: export"
+  },
+  {
+    "number": 5434,
+    "state": "merged",
+    "title": "fix: resolve issues reported by static analysis (Bugbot) on export da…"
+  },
+  {
+    "number": 5435,
+    "state": "merged",
+    "title": "Modul/psdkp angka: poa"
+  },
+  {
+    "number": 5436,
+    "state": "merged",
+    "title": "fix: hapus label tahun/bulan dari card DashboardPimpinan & perbaiki s…"
+  },
+  {
+    "number": 5437,
+    "state": "merged",
+    "title": "fix: buat getTabelPemeriksaan dinamis tanpa hardcode tahun 2020-2025"
+  },
+  {
+    "number": 5438,
+    "state": "merged",
+    "title": "feat: batasi grafik dan tabel OperasiArmada tampil per 5 tahun terakhir"
+  },
+  {
+    "number": 5439,
+    "state": "merged",
+    "title": "feat: buat rentang grafik dinamis mengikuti tahun filter request"
+  },
+  {
+    "number": 5440,
+    "state": "merged",
+    "title": "feat: batasi data history dan comparison menjadi dinamis 5 tahun tera…"
+  },
+  {
+    "number": 5441,
+    "state": "merged",
+    "title": "fix: bersihkan sisa label TAHUN di PengawasanSdkpService"
+  },
+  {
+    "number": 5442,
+    "state": "merged",
+    "title": "fix: buat penamaan file export Pengawasan SDKP mengikuti nama chartType"
+  },
+  {
+    "number": 5444,
+    "state": "merged",
+    "title": "Modul/psdkp angka: update data"
+  },
+  {
+    "number": 5445,
+    "state": "merged",
+    "title": "Modul/psdkp angka: fix ori data"
+  },
+  {
+    "number": 5446,
+    "state": "merged",
+    "title": "fix: restore data operasi armada dan sinkronisasi ulang data 2026 tan…"
+  },
+  {
+    "number": 5447,
+    "state": "merged",
+    "title": "Modul/psdkp angka"
+  },
+  {
+    "number": 5448,
+    "state": "merged",
+    "title": "feat(DashboardPimpinan): integrasi data speedboat dari Excel ke JSON …"
+  },
+  {
+    "number": 5449,
+    "state": "merged",
+    "title": "chore: allow speedboat dashboard data in gitignore and add initial data"
+  },
+  {
+    "number": 5450,
+    "state": "merged",
+    "title": "fix(DashboardPimpinan): resolusi 4 isu Cursor Bugbot (speedboat JSON,…"
+  },
+  {
+    "number": 5453,
+    "state": "merged",
+    "title": "Modul/psdkp angka: main pie chart "
+  },
+  {
+    "number": 5455,
+    "state": "merged",
+    "title": "Modul/psdkp angka"
+  },
+  {
+    "number": 5456,
+    "state": "merged",
+    "title": "fix(Middleware): amankan akses public pada AccessMiddleware untuk res…"
+  }
+]

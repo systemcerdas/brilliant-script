@@ -10,7 +10,9 @@ def load_config(period):
     config_path = root / "input" / period / "config.json"
     if not config_path.exists():
         raise FileNotFoundError("Config tidak ditemukan: " + str(config_path))
-    return json.loads(config_path.read_text(encoding="utf-8"))
+    cfg = json.loads(config_path.read_text(encoding="utf-8"))
+    cfg["period"] = period
+    return cfg
 
 def input_dir(period):
     return project_root() / "input" / period
@@ -22,3 +24,11 @@ def output_dir(period):
 
 def template_dir():
     return project_root() / "template"
+
+def weekly_report_path(period):
+    """Cari weekly report: coba YYYYMM_weekly_report.md dulu, fallback ke weekly_report.md"""
+    inp = input_dir(period)
+    timestamped = inp / f"{period}_weekly_report.md"
+    if timestamped.exists():
+        return timestamped
+    return inp / "weekly_report.md"

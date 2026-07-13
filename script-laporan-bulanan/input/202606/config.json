@@ -1,0 +1,78 @@
+{
+  "period": "202606",
+  "bulan": "Juni",
+  "bulan_up": "JUNI",
+  "tahun": 2026,
+  "nama": "Lutfi Ihsan",
+  "jabatan": "Tenaga Teknis Implementasi Logika Sistem",
+  "output_filename": "Laporan Bulanan_Lutfi Ihsan - Juni 2026.docx",
+  "detail_docx": "detail_laporan.docx",
+  "detail_txt": "detail_github.txt",
+  "weekly_user_filter": "Lutfi",
+  "github": {
+    "repo": "setditjen-psdkp/api-sip",
+    "author": "lutfiihsan",
+    "date_ranges": [
+      "2026-06-01..2026-06-10",
+      "2026-06-11..2026-06-20",
+      "2026-06-21..2026-06-30"
+    ],
+    "fetch_if_missing": true,
+    "fetch_always": false
+  },
+  "tech": {
+    "language": "PHP v8.2",
+    "framework": "Laravel 11",
+    "repo_url": "https://github.com/setditjen-psdkp/api-sip"
+  },
+  "code_snippet": {
+    "title": "Contoh Cuplikan Kode Sumber",
+    "content": ""
+  },
+  "media": {
+    "github_screenshots": [
+      "image1.png",
+      "image2.png",
+      "image3.png",
+      "image4.png",
+      "image5.png",
+      "image6.png",
+      "image7.png",
+      "image8.png",
+      "image9.png",
+      "image10.png"
+    ],
+    "server_screenshots": [
+      "image11.jpeg",
+      "image12.png"
+    ],
+    "lampiran_screenshots": [
+      "image13.jpeg",
+      "image14.jpeg",
+      "image15.jpeg",
+      "image16.jpeg"
+    ]
+  },
+  "bab1": {
+    "pencapaian": "Pada bulan Juni 2026, ...",
+    "tantangan": "Selama penyusunan, ..."
+  },
+  "bab3": {
+    "kesimpulan_pembuka": "Dalam laporan bulanan ini, saya ingin menyampaikan kemajuan yang telah dicapai dalam implementasi logika sistem di Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan, Kementerian Kelautan dan Perikanan Republik Indonesia. Selama periode ini, saya telah berhasil melakukan perubahan dan penambahan fitur yang signifikan, yang telah meningkatkan fungsionalitas dan penggunaan platform.\nBersama ini kami sampaikan beberapa hal, adalah sebagai berikut :",
+    "kesimpulan_items": [
+      "Modul Pengawasan Perizinan Berusaha (WasRisk)",
+      "Modul User Management",
+      "Modul PSDKP Angka (Dashboard Pimpinan)",
+      "Modul Master Data / OSS / KKPRL"
+    ],
+    "kesimpulan_penutup": "Dengan laporan pekerjaan bulanan ini, harapannya Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan dapat memahami dengan baik kemajuan yang telah dicapai. Saya berkomitmen untuk terus meningkatkan kualitas dan fungsionalitas sistem backend sesuai dengan kebutuhan dan harapan yang telah ditetapkan.",
+    "saran_pembuka": "Dalam laporan pekerjaan bulanan ini, saya ingin memberikan beberapa rekomendasi yang dapat mendukung pengembangan lebih lanjut logika sistem backend di Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan, Kementerian Kelautan dan Perikanan Republik Indonesia.",
+    "saran_items": [
+      "Peningkatan Keamanan Sistem: Menjaga keamanan sistem menjadi prioritas utama. Saya menyarankan untuk secara rutin meninjau dan mengevaluasi langkah-langkah keamanan yang ada, termasuk enkripsi data, validasi input, dan perlindungan terhadap serangan dari luar. Dengan meningkatkan keamanan platform, kita dapat melindungi data sensitif yang terlibat dalam pengawasan sumber daya kelautan dan perikanan.",
+      "Pengalaman Pengguna yang Baik: Fokus pada pengalaman pengguna (user experience) platform. Pastikan antarmuka pengguna intuitif, responsif, dan mudah digunakan. Sediakan dokumentasi yang jelas dan panduan pengguna yang komprehensif untuk membantu pengguna memanfaatkan fitur-fitur platform dengan optimal. Dengan memberikan pengalaman pengguna yang baik, kita dapat meningkatkan kepuasan pengguna dan efektivitas penggunaan platform.",
+      "Implementasikan Sistem Pemantauan dan Pelaporan: Terapkan sistem pemantauan dan pelaporan yang efektif. Dalam pengawasan sumber daya kelautan dan perikanan, pemantauan secara real-time dan pelaporan yang akurat sangat penting. Integrasikan fitur-fitur yang memungkinkan pemantauan langsung terhadap operasi, pemrosesan data secara cepat, dan pelaporan otomatis. Dengan sistem pemantauan dan pelaporan yang baik, kita dapat meningkatkan efisiensi dan efektivitas kerja dalam pengawasan sumber daya kelautan dan perikanan.",
+      "Evaluasi dan Respons terhadap Feedback Pengguna: Penting untuk melakukan evaluasi terhadap masukan dan saran dari pengguna platform. Buka ruang untuk menerima feedback pengguna dan adakan sesi komunikasi dan diskusi rutin. Dengan mendengarkan pengguna, kita dapat mengidentifikasi masalah yang mungkin muncul dan mendapatkan wawasan berharga untuk meningkatkan fitur dan fungsionalitas platform."
+    ],
+    "saran_penutup": "Dengan mengimplementasikan rekomendasi ini, kiranya dapat menjadi solusi yang lebih efisien, aman, dan memenuhi kebutuhan dalam pengawasan sumber daya kelautan dan perikanan."
+  }
+}
