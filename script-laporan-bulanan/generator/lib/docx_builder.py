@@ -33,6 +33,64 @@ def enable_update_fields(doc):
     update.set(qn("w:val"), "true")
     doc.settings.element.append(update)
 
+
+def add_page_numbers(doc):
+    """Insert a centered PAGE field in the footer of every section.
+    Cover page (first page of first section) is excluded via different_first_page.
+    """
+    for i, section in enumerate(doc.sections):
+        if i == 0:
+            # Cover: first page gets no page number
+            section.different_first_page_header_footer = True
+            # first_page_footer stays empty — no action needed
+
+        footer = section.footer
+        footer.is_linked_to_previous = False
+        fp = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+        fp.clear()
+        fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        _set_line_spacing(fp.paragraph_format)
+        r = fp.add_run()
+        r.font.name = FONT
+        # PAGE field: begin
+        fld_begin = OxmlElement("w:fldChar")
+        fld_begin.set(qn("w:fldCharType"), "begin")
+        r._r.append(fld_begin)
+        # instruction
+        instr = OxmlElement("w:instrText")
+        instr.set(qn("xml:space"), "preserve")
+        instr.text = " PAGE "
+        r._r.append(instr)
+        # PAGE field: end
+        fld_end = OxmlElement("w:fldChar")
+        fld_end.set(qn("w:fldCharType"), "end")
+        r._r.append(fld_end)
+
+
+def add_toc(doc):
+    """Inject a Word TOC field that auto-populates when opened in Word."""
+    p = doc.add_paragraph()
+    p.style = doc.styles["Normal"]
+    _set_line_spacing(p.paragraph_format)
+    r = p.add_run()
+    # fldChar begin
+    fld_begin = OxmlElement("w:fldChar")
+    fld_begin.set(qn("w:fldCharType"), "begin")
+    r._r.append(fld_begin)
+    # instrText
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = ' TOC \\o "1-3" \\h \\z \\u '
+    r._r.append(instr)
+    # fldChar separate
+    fld_sep = OxmlElement("w:fldChar")
+    fld_sep.set(qn("w:fldCharType"), "separate")
+    r._r.append(fld_sep)
+    # fldChar end
+    fld_end = OxmlElement("w:fldChar")
+    fld_end.set(qn("w:fldCharType"), "end")
+    r._r.append(fld_end)
+
 def add_body(doc, text, align=WD_ALIGN_PARAGRAPH.JUSTIFY):
     p = doc.add_paragraph()
     p.style = doc.styles["Normal"]
@@ -42,17 +100,29 @@ def add_body(doc, text, align=WD_ALIGN_PARAGRAPH.JUSTIFY):
     return p
 
 def add_module_heading(doc, text):
-    p = doc.add_paragraph()
-    p.style = doc.styles["Normal"]
+    """Module/BAB heading — uses Heading 2 style so TOC picks it up."""
+    p = doc.add_paragraph(style="Heading 2")
     _set_line_spacing(p.paragraph_format)
-    _run(p, text, bold=True, size=SIZE_HEADING)
+    # Clear existing runs from style and add our own
+    for run in p.runs:
+        run.text = ""
+    r = p.add_run(text)
+    r.font.name = FONT
+    r.bold = True
+    r.font.size = SIZE_HEADING
     return p
 
 def add_activity_name(doc, text):
-    p = doc.add_paragraph(style="List Paragraph")
+    """Sub-activity name — uses Heading 3 style so TOC picks it up."""
+    p = doc.add_paragraph(style="Heading 3")
     _set_line_spacing(p.paragraph_format)
     p.paragraph_format.left_indent = Pt(14)
-    _run(p, text, bold=False, size=SIZE_HEADING)
+    for run in p.runs:
+        run.text = ""
+    r = p.add_run(text)
+    r.font.name = FONT
+    r.bold = False
+    r.font.size = SIZE_HEADING
     return p
 
 def add_lampiran_heading(doc):
@@ -195,9 +265,14 @@ def build_manajemen_kode(doc, config, prs, media_dir):
 def build_lampiran(doc, config, prs, weekly_rows, media_dir):
     bulan = config.get("bulan", "")
     tahun = config.get("tahun", "")
-    add_lampiran_heading(doc)
-    doc.add_paragraph()
-    
+    # Page break: LAMPIRAN cover is already in the template before the marker,
+    # so push actual content to the next page.
+    pb = doc.add_paragraph()
+    pb.style = doc.styles["Normal"]
+    br = OxmlElement("w:br")
+    br.set(qn("w:type"), "page")
+    pb._p.append(br)
+
     # Weekly Report
     add_module_heading(doc, f"Lampiran 1 – Weekly Report {bulan} {tahun}")
     tbl = doc.add_table(rows=1, cols=7)
@@ -285,17 +360,57 @@ def build_report(config, prs):
                     if old_t in r.text:
                         r.text = r.text.replace(old_t, new_t)
     
+    toc_p = None
     bab2_p = None
     lampiran_p = None
+    kata_pengantar_p = None
     for p in doc.paragraphs:
+        if '{{ TOC }}' in p.text: toc_p = p
         if '{{ BAB2 }}' in p.text: bab2_p = p
         if '{{ LAMPIRAN }}' in p.text: lampiran_p = p
-        
+        if 'Kata Pengantar' == p.text.strip() and kata_pengantar_p is None:
+            kata_pengantar_p = p
+
+    # Inject TOC: if explicit marker found use it, else inject before Kata Pengantar
+    if toc_p:
+        splice_elements(toc_p, [add_toc], [()])
+    elif kata_pengantar_p is not None:
+        curr = kata_pengantar_p._element
+        temp_doc = Document()
+        # DAFTAR ISI heading + TOC field — NO leading page break,
+        # template already provides natural page boundary before Kata Pengantar
+        # Reuse the default empty paragraph Document() always creates,
+        # instead of add_paragraph() which would create a second blank para
+        # that becomes a blank page when injected.
+        h_p = temp_doc.paragraphs[0] if temp_doc.paragraphs else temp_doc.add_paragraph()
+        h_p.style = temp_doc.styles["Normal"]
+        h_r = h_p.add_run("DAFTAR ISI")
+        h_r.font.name = FONT
+        h_r.bold = True
+        h_r.font.size = SIZE_HEADING
+        _set_line_spacing(h_p.paragraph_format)
+        # TOC field
+        add_toc(temp_doc)
+        # Page break AFTER TOC so Kata Pengantar starts on new page
+        pb2_p = temp_doc.add_paragraph()
+        pb2_p.style = temp_doc.styles["Normal"]
+        br2 = OxmlElement("w:br")
+        br2.set(qn("w:type"), "page")
+        pb2_p._p.append(br2)
+        # Insert before kata_pengantar_p
+        for el in temp_doc.element.body:
+            if el.tag.endswith('sectPr'): continue
+            new_el = copy.deepcopy(el)
+            curr.addprevious(new_el)
+
+
     if bab2_p:
         splice_elements(bab2_p, [build_bab2, build_kegiatan_tambahan, build_manajemen_kode], [(modules,), (kegiatan,), (config, prs, media_dir)])
-    
+
     if lampiran_p:
         splice_elements(lampiran_p, [build_lampiran], [(config, prs, weekly_rows, media_dir)])
 
+    add_page_numbers(doc)
     doc.save(str(output_path))
     return output_path
+

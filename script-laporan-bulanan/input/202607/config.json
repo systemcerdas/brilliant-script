@@ -10,20 +10,20 @@
   "detail_txt": "detail_github.txt",
   "weekly_user_filter": "Lutfi",
   "github": {
-    "repo": "setditjen-psdkp/api-sip",
-    "author": "lutfiihsan",
+    "repo": "systemcerdas/sipservice",
+    "author": "systemcerdas",
     "date_ranges": [
       "2026-07-01..2026-07-10",
       "2026-07-11..2026-07-20",
       "2026-07-21..2026-07-31"
     ],
-    "fetch_if_missing": true,
+    "fetch_if_missing": false,
     "fetch_always": false
   },
   "tech": {
-    "language": "PHP v8.2",
-    "framework": "Laravel 11",
-    "repo_url": "https://github.com/setditjen-psdkp/api-sip"
+    "language": "Go / TypeScript",
+    "framework": "Go (net/http) + Node.js",
+    "repo_url": "https://github.com/systemcerdas/sipservice"
   },
   "code_snippet": {
     "title": "Contoh Cuplikan Kode Sumber",
@@ -54,12 +54,25 @@
     ]
   },
   "bab1": {
-    "pencapaian": "Pada bulan Juli 2026, ...",
-    "tantangan": "Selama penyusunan, ..."
+    "pencapaian": "Pada bulan Juli 2026, Tenaga Teknis Implementasi Logika Sistem telah melaksanakan serangkaian kegiatan pengembangan dan perbaikan pada repositori sipservice (https://github.com/systemcerdas/sipservice). Kegiatan utama mencakup pengembangan Modul PSDKP Angka meliputi API POKMASWAS, area pengawasan, WPPNRI, detail armada, realisasi anggaran, dan PNBP; pembaruan GeoJSON dan Dashboard Pimpinan; serta implementasi konfigurasi CORS, perbaikan logika skor CBIB/CPIB pada Kepatuhan Teknis, dan dokumentasi API (Decoupled SSE). Selama periode ini tercatat 31 pull request yang berhasil di-merge.",
+    "tantangan": "Selama pelaksanaan pekerjaan bulan Juli 2026, terdapat beberapa tantangan yang dihadapi, antara lain: kompleksitas integrasi data statistik pengawasan laut dari berbagai sumber, kebutuhan penyesuaian logika skor kepatuhan teknis (CBIB dan CPIB) yang berpengaruh pada validitas data laporan, serta pengelolaan konfigurasi CORS untuk mendukung multi-origin pada lingkungan produksi dan staging."
   },
   "bab3": {
+    "kesimpulan_pembuka": "Dalam laporan bulanan ini, saya ingin menyampaikan kemajuan yang telah dicapai dalam implementasi logika sistem di Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan, Kementerian Kelautan dan Perikanan Republik Indonesia. Selama periode Juli 2026, saya telah berhasil melakukan perubahan dan penambahan fitur yang signifikan pada repositori sipservice, yang telah meningkatkan fungsionalitas dan kualitas platform.\nBersama ini kami sampaikan beberapa hal, adalah sebagai berikut :",
     "kesimpulan_items": [
-      "Modul ... - ringkasan pencapaian"
-    ]
+      "Modul PSDKP Angka (API POKMASWAS, Area Pengawasan, WPPNRI, Detail Armada)",
+      "Modul Dashboard Pimpinan (Realisasi Anggaran, PNBP, Kewenangan, GeoJSON)",
+      "Modul Kepatuhan Teknis (Perbaikan Logika Skor CBIB dan CPIB)",
+      "Infrastruktur & Konfigurasi (CORS, Decoupled SSE, API Docs)"
+    ],
+    "kesimpulan_penutup": "Dengan laporan pekerjaan bulanan ini, harapannya Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan dapat memahami dengan baik kemajuan yang telah dicapai. Saya berkomitmen untuk terus meningkatkan kualitas dan fungsionalitas sistem backend sesuai dengan kebutuhan dan harapan yang telah ditetapkan.",
+    "saran_pembuka": "Dalam laporan pekerjaan bulanan ini, saya ingin memberikan beberapa rekomendasi yang dapat mendukung pengembangan lebih lanjut logika sistem backend di Direktorat Jenderal Pengawasan Sumber Daya Kelautan dan Perikanan, Kementerian Kelautan dan Perikanan Republik Indonesia.",
+    "saran_items": [
+      "Peningkatan Keamanan Sistem: Menjaga keamanan sistem menjadi prioritas utama. Saya menyarankan untuk secara rutin meninjau dan mengevaluasi langkah-langkah keamanan yang ada, termasuk enkripsi data, validasi input, dan perlindungan terhadap serangan dari luar. Dengan meningkatkan keamanan platform, kita dapat melindungi data sensitif yang terlibat dalam pengawasan sumber daya kelautan dan perikanan.",
+      "Pengalaman Pengguna yang Baik: Fokus pada pengalaman pengguna (user experience) platform. Pastikan antarmuka pengguna intuitif, responsif, dan mudah digunakan. Sediakan dokumentasi yang jelas dan panduan pengguna yang komprehensif untuk membantu pengguna memanfaatkan fitur-fitur platform dengan optimal. Dengan memberikan pengalaman pengguna yang baik, kita dapat meningkatkan kepuasan pengguna dan efektivitas penggunaan platform.",
+      "Implementasikan Sistem Pemantauan dan Pelaporan: Terapkan sistem pemantauan dan pelaporan yang efektif. Dalam pengawasan sumber daya kelautan dan perikanan, pemantauan secara real-time dan pelaporan yang akurat sangat penting. Integrasikan fitur-fitur yang memungkinkan pemantauan langsung terhadap operasi, pemrosesan data secara cepat, dan pelaporan otomatis.",
+      "Evaluasi dan Respons terhadap Feedback Pengguna: Penting untuk melakukan evaluasi terhadap masukan dan saran dari pengguna platform. Buka ruang untuk menerima feedback pengguna dan adakan sesi komunikasi dan diskusi rutin. Dengan mendengarkan pengguna, kita dapat mengidentifikasi masalah yang mungkin muncul dan mendapatkan wawasan berharga untuk meningkatkan fitur dan fungsionalitas platform."
+    ],
+    "saran_penutup": "Dengan mengimplementasikan rekomendasi ini, kiranya dapat menjadi solusi yang lebih efisien, aman, dan memenuhi kebutuhan dalam pengawasan sumber daya kelautan dan perikanan."
   }
 }
