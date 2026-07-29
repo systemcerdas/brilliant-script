@@ -28,3 +28,5 @@ script-spmb-bot/python/.curl
 script-spmb-bot/python/.cred
 script-spmb-bot/python/spmb_output/
 script-spmb-bot/python/.venv/
+
+weekly_report/
