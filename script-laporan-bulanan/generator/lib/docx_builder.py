@@ -351,8 +351,14 @@ def build_report(config, prs):
     bulan_up = config.get('bulan_up', config['bulan'].upper())
     replacements = {
         'Mei 2026': f"{config['bulan']} {config['tahun']}",
-        'MEI 2026': f"{bulan_up} {config['tahun']}"
+        'Mei2026': f"{config['bulan']} {config['tahun']}",
+        'MEI 2026': f"{bulan_up} {config['tahun']}",
+        '{{ BAB1_PENCAPAIAN }}': config.get('bab1', {}).get('pencapaian', ''),
+        '{{ BAB1_TANTANGAN }}': config.get('bab1', {}).get('tantangan', ''),
     }
+    # BAB 3 Kesimpulan is a list, join them with newlines
+    kesimpulan = "\n".join(config.get('bab3', {}).get('kesimpulan_items', []))
+    replacements['{{ BAB3_KESIMPULAN }}'] = kesimpulan
     for p in doc.paragraphs:
         for old_t, new_t in replacements.items():
             if old_t in p.text:
