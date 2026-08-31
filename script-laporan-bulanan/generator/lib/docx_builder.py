@@ -209,13 +209,23 @@ def add_activity_table(doc, activity):
 # -------------------------------------------------------------------
 # Builders for BAB II and Lampiran
 # -------------------------------------------------------------------
+
+def get_letter(num):
+    import string
+    res = ""
+    while num >= 0:
+        res = string.ascii_lowercase[num % 26] + res
+        num = num // 26 - 1
+    return res
+
 def build_bab2(doc, modules):
-    for mod in modules:
-        add_module_heading(doc, mod["title"])
+    for i, mod in enumerate(modules, 1):
+        add_module_heading(doc, f"2.{i}.\t{mod['title']}")
         if mod["intro"]:
             add_body(doc, mod["intro"])
-        for act in mod["activities"]:
-            add_activity_name(doc, act["subtitle"])
+        for j, act in enumerate(mod["activities"]):
+            letter = get_letter(j)
+            add_activity_name(doc, f"{letter}.\t{act['subtitle']}")
             if act["prolog"]:
                 add_body(doc, act["prolog"])
             add_activity_table(doc, act)
@@ -262,55 +272,66 @@ def build_manajemen_kode(doc, config, prs, media_dir):
     if not add_image_if_exists(doc, media_dir, "image4.jpeg", width=Inches(6.0)):
         add_body(doc, "[Screenshot server terlampir]")
 
-def build_lampiran(doc, config, prs, weekly_rows, media_dir):
+def build_diff_document(config, prs, diffs):
+    from docx import Document
+    doc = Document()
     bulan = config.get("bulan", "")
     tahun = config.get("tahun", "")
-    # Page break: LAMPIRAN cover is already in the template before the marker,
-    # so push actual content to the next page.
-    pb = doc.add_paragraph()
-    pb.style = doc.styles["Normal"]
-    br = OxmlElement("w:br")
-    br.set(qn("w:type"), "page")
-    pb._p.append(br)
-
-    # Weekly Report
-    add_module_heading(doc, f"Lampiran 1 – Weekly Report {bulan} {tahun}")
-    tbl = doc.add_table(rows=1, cols=7)
-    tbl.style = "Table Grid"
-    for i, h in enumerate(["Weekly Cat", "Date Range", "Date", "Activity", "Output", "User", "Related Doc"]):
-        _cell_run(tbl.rows[0].cells[i], h, bold=True)
-    for row in weekly_rows:
-        cells = tbl.add_row().cells
-        _cell_run(cells[0], row.get("minggu", ""))
-        _cell_run(cells[1], row.get("date_range", ""))
-        _cell_run(cells[2], row.get("tanggal", ""))
-        _cell_run(cells[3], row.get("aktivitas", ""))
-        _cell_run(cells[4], row.get("output", ""))
-        _cell_run(cells[5], row.get("user", ""))
-        _cell_run(cells[6], row.get("dokumentasi", ""))
     
-    # Code source & PR
-    doc.add_page_break()
     add_module_heading(doc, "Lampiran 2 – Kode Sumber & PR List")
     add_body(doc, f"Bahasa Pemrograman\t: {config['tech']['language']}")
     add_body(doc, f"Framework\t\t\t: {config['tech']['framework']}")
     add_body(doc, f"Repositori\t\t\t: {config['tech']['repo_url']}")
     
-    add_body(doc, f"Daftar Pull Request Bulan {bulan} {tahun} (Author: {config['github']['author']}) — Total: {len(prs)} PR")
+    author_str = config['github'].get('author_display', config['github']['author'])
+    add_body(doc, f"Daftar Pull Request Bulan {bulan} {tahun} (Author: {author_str}) — Total: {len(prs)} PR")
     
-    table = doc.add_table(rows=1, cols=4)
-    table.style = "Table Grid"
-    for i, h in enumerate(["No", "PR #", "Judul", "Status"]):
-        _cell_run(table.rows[0].cells[i], h, bold=True)
-    for idx, pr in enumerate(prs, 1):
-        row = table.add_row().cells
-        _cell_run(row[0], str(idx))
-        _cell_run(row[1], str(pr["number"]))
-        _cell_run(row[2], pr["title"])
-        _cell_run(row[3], pr["state"].upper())
+    for pr in prs:
+        # PR Title
+        title_p = doc.add_paragraph()
+        title_r = title_p.add_run(f"PR #{pr['number']}: {pr['title']}")
+        title_r.bold = True
+        title_p.paragraph_format.space_before = Pt(12)
+        title_p.paragraph_format.space_after = Pt(6)
+        
+        # PR Diff
+        diff_text = diffs.get(str(pr['number']), "Diff tidak tersedia.")
+        diff_lines = diff_text.splitlines()
+        
+        limit = 100
+        max_line_length = 150
+        for line in diff_lines[:limit]:
+            if len(line) > max_line_length:
+                line = line[:max_line_length] + " ... [line truncated]"
+            diff_p = doc.add_paragraph()
+            diff_p.paragraph_format.space_after = Pt(0)
+            diff_p.paragraph_format.line_spacing = 1.0
+            diff_p.paragraph_format.left_indent = Pt(10)
+            diff_r = diff_p.add_run(line)
+            diff_r.font.name = "Courier New"
+            diff_r.font.size = Pt(8)
+            
+        if len(diff_lines) > limit:
+            diff_p = doc.add_paragraph()
+            diff_p.paragraph_format.space_after = Pt(0)
+            diff_p.paragraph_format.left_indent = Pt(10)
+            diff_r = diff_p.add_run("... [diff truncated]")
+            diff_r.font.name = "Courier New"
+            diff_r.font.size = Pt(8)
+            diff_r.font.italic = True
+        
+        # Add spacing after each PR block
+        doc.add_paragraph()
 
-    if not add_image_if_exists(doc, media_dir, "image12.jpeg"):
-        doc.add_paragraph("[Screenshot GitHub PR terlampir]")
+    # The screenshot usually needs the media_dir, we can just skip it here or pass it if needed.
+    doc.add_paragraph("[Screenshot GitHub PR terlampir]")
+    
+    # Save the document
+    output_dir_path = output_dir(config["period"])
+    base_name = config["output_filename"].replace(".docx", "")
+    output_path = output_dir_path / f"{base_name} - Lampiran Diff.docx"
+    doc.save(str(output_path))
+    return output_path
 
 # -------------------------------------------------------------------
 # The Core Splicing engine
@@ -328,7 +349,9 @@ def splice_elements(marker_p, builder_funcs, args_list):
         curr = new_el
     marker_p._element.getparent().remove(marker_p._element)
 
-def build_report(config, prs):
+def build_report(config, prs, diffs=None):
+    if diffs is None:
+        diffs = {}
     period   = config["period"]
     inp, tpl = input_dir(period), template_dir()
     media_dir    = tpl / "media"
@@ -350,21 +373,33 @@ def build_report(config, prs):
     # Simple placeholder replacement on the original doc template
     bulan_up = config.get('bulan_up', config['bulan'].upper())
     replacements = {
-        'Mei 2026': f"{config['bulan']} {config['tahun']}",
-        'Mei2026': f"{config['bulan']} {config['tahun']}",
-        'MEI 2026': f"{bulan_up} {config['tahun']}",
         '{{ BAB1_PENCAPAIAN }}': config.get('bab1', {}).get('pencapaian', ''),
         '{{ BAB1_TANTANGAN }}': config.get('bab1', {}).get('tantangan', ''),
     }
     # BAB 3 Kesimpulan is a list, join them with newlines
     kesimpulan = "\n".join(config.get('bab3', {}).get('kesimpulan_items', []))
     replacements['{{ BAB3_KESIMPULAN }}'] = kesimpulan
+    
     for p in doc.paragraphs:
+        # 1. Apply Heading 1 to BAB headings so they enter TOC
+        p_text_stripped = p.text.strip()
+        if p_text_stripped in ["BAB I", "PENDAHULUAN", "BAB II", "HASIL KEGIATAN", "BAB III", "PENUTUP"]:
+            p.style = "Heading 1"
+
+        # 2. Handle template placeholders
         for old_t, new_t in replacements.items():
             if old_t in p.text:
                 for r in p.runs:
                     if old_t in r.text:
                         r.text = r.text.replace(old_t, new_t)
+                        
+        # 3. Handle split-run month replacements (Mei -> config['bulan'])
+        if 'Mei' in p.text or 'MEI' in p.text:
+            for r in p.runs:
+                if 'Mei' in r.text:
+                    r.text = r.text.replace('Mei', config['bulan'])
+                if 'MEI' in r.text:
+                    r.text = r.text.replace('MEI', bulan_up)
     
     toc_p = None
     bab2_p = None
@@ -414,7 +449,8 @@ def build_report(config, prs):
         splice_elements(bab2_p, [build_bab2, build_kegiatan_tambahan, build_manajemen_kode], [(modules,), (kegiatan,), (config, prs, media_dir)])
 
     if lampiran_p:
-        splice_elements(lampiran_p, [build_lampiran], [(config, prs, weekly_rows, media_dir)])
+        # Delete the {{ LAMPIRAN }} marker, as we will append the lampiran using docxcompose
+        lampiran_p._element.getparent().remove(lampiran_p._element)
 
     add_page_numbers(doc)
     doc.save(str(output_path))

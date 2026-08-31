@@ -106,6 +106,11 @@ python generator/generate.py 202607
 python generator/generate.py 202607 --fetch-prs
 ```
 
+**Note Sistem Generator**: 
+- `Lampiran 1 (Weekly Report)` kini diambil murni dari *export* manual yang diletakkan di `input/YYYYMM/YYYYMM_Program dan Data Weekly Report.docx` (berformat *Landscape*).
+- `generate.py` menggunakan pustaka `docxcompose` untuk merangkai `Dokumen Utama`, `Lampiran 1 (Manual)`, dan `Lampiran 2 (Code Diff)` menjadi satu *file* secara rapi tanpa merusak layout portrait/landscape.
+- Code Diff JSON panjang di- *truncate* max 150 karakter/baris untuk mencegah *lag/freeze* pada Word.
+
 Output: `output/202607/Laporan Bulanan_Lutfi Ihsan - Juli 2026.docx`
 
 Buka di Word → klik kanan **Daftar Isi** → **Update Field** untuk sinkronkan nomor halaman.
@@ -127,6 +132,7 @@ Buka di Word → klik kanan **Daftar Isi** → **Update Field** untuk sinkronkan
   "github": {
     "repo": "setditjen-psdkp/api-sip",
     "author": "lutfiihsan",
+    "author_display": "lutfiihsan (Lutfi Ihsan)",
     "date_ranges": ["2026-07-01..2026-07-10", "..."],
     "fetch_if_missing": true,
     "fetch_always": false

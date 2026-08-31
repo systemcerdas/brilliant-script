@@ -1,0 +1,187 @@
+[
+  {
+    "number": 1,
+    "state": "merged",
+    "title": "Modul/psdkp angka: improve legenda satker"
+  },
+  {
+    "number": 2,
+    "state": "merged",
+    "title": "Update POKMASWAS API endpoint and remove static meta from geojson"
+  },
+  {
+    "number": 3,
+    "state": "merged",
+    "title": "Modul/psdkp angka: areaPengawasan dan WPPNRI"
+  },
+  {
+    "number": 4,
+    "state": "merged",
+    "title": "Remove kapal-pengawas-pusat and kapal-pengawas-upt from layerArmada"
+  },
+  {
+    "number": 5,
+    "state": "merged",
+    "title": "Modul/psdkp angka: detailArmada"
+  },
+  {
+    "number": 6,
+    "state": "merged",
+    "title": "Modul/psdkp angka: improve realisasi dan pnbp"
+  },
+  {
+    "number": 7,
+    "state": "merged",
+    "title": "Modul/psdkp angka: improve realisasi dan pnbp"
+  },
+  {
+    "number": 8,
+    "state": "merged",
+    "title": "chore(geojson): simplify pokmaswas attributes"
+  },
+  {
+    "number": 9,
+    "state": "merged",
+    "title": "feat(geojson): support wppnri label parameter with simplified geojson"
+  },
+  {
+    "number": 10,
+    "state": "merged",
+    "title": "fix(dashboard): change pnbp comparison parameter to trend and restore…"
+  },
+  {
+    "number": 11,
+    "state": "merged",
+    "title": "Modul/psdkp angka: improve realisasi"
+  },
+  {
+    "number": 12,
+    "state": "merged",
+    "title": "Modul/psdkp angka: update kewenangan"
+  },
+  {
+    "number": 13,
+    "state": "merged",
+    "title": "feat(dashboard-pimpinan): sync data kewenangan from production with s…"
+  },
+  {
+    "number": 14,
+    "state": "merged",
+    "title": "fix(dashboard-pimpinan): remove illogical date filter for active kewe…"
+  },
+  {
+    "number": 15,
+    "state": "merged",
+    "title": "fix: override polsus and ppns count with demo json in non-production"
+  },
+  {
+    "number": 16,
+    "state": "merged",
+    "title": "fix(DashboardPimpinan): update RealisasiAnggaran API response to alig…"
+  },
+  {
+    "number": 17,
+    "state": "merged",
+    "title": "feat(DashboardPimpinan): add percentage fields to trend api response …"
+  },
+  {
+    "number": 18,
+    "state": "merged",
+    "title": "Modul/psdkp angka"
+  },
+  {
+    "number": 19,
+    "state": "merged",
+    "title": "fix(DashboardPimpinan): ensure legacy comparison years respects year …"
+  },
+  {
+    "number": 20,
+    "state": "merged",
+    "title": "feat(DashboardPimpinan): add persentase and persentaseDisplay to PNBP…"
+  },
+  {
+    "number": 21,
+    "state": "merged",
+    "title": "feat(dashboard): add persentase and persentaseDisplay to pagu object …"
+  },
+  {
+    "number": 22,
+    "state": "merged",
+    "title": "Modul/psdkp angka: fix flag is pusat"
+  },
+  {
+    "number": 23,
+    "state": "merged",
+    "title": "fix: flag kapal pusat dan update .gitignore"
+  },
+  {
+    "number": 24,
+    "state": "merged",
+    "title": "fix: pagu"
+  },
+  {
+    "number": 25,
+    "state": "merged",
+    "title": "feat: create RealisasiAnggaranService to process and aggregate budget…"
+  },
+  {
+    "number": 26,
+    "state": "merged",
+    "title": "feat: add initial dataset for marine supervision dashboard statistics"
+  },
+  {
+    "number": 27,
+    "state": "merged",
+    "title": "Feature/api docs updates"
+  },
+  {
+    "number": 28,
+    "state": "merged",
+    "title": "feat: API Docs (Decoupled SSE)"
+  },
+  {
+    "number": 29,
+    "state": "merged",
+    "title": "fix: perbaikan logika skor CBIB dan CPIB pada saat simpan Kepatuhan Teknis"
+  },
+  {
+    "number": 30,
+    "state": "merged",
+    "title": "feat: add CORS configuration with allowed origins and patterns"
+  },
+  {
+    "number": 31,
+    "state": "merged",
+    "title": "chore: tambahkan script helper untuk koreksi bug skor cbib dan cpib"
+  },
+  {
+    "number": 32,
+    "state": "merged",
+    "title": "fix(korespondensi): perbaikan filter tanggal mulai & akhir"
+  },
+  {
+    "number": 33,
+    "state": "merged",
+    "title": "Modul/psdkp angka: fix color"
+  },
+  {
+    "number": 34,
+    "state": "merged",
+    "title": "fix: warna legenda"
+  },
+  {
+    "number": 35,
+    "state": "merged",
+    "title": "fix: armada pesawat"
+  },
+  {
+    "number": 36,
+    "state": "merged",
+    "title": "feat(improve): hide wilker"
+  },
+  {
+    "number": 37,
+    "state": "merged",
+    "title": "fix: remove duplicat ship"
+  }
+]

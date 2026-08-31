@@ -31,6 +31,9 @@ Semua command dijalankan dari folder tersebut kecuali dinyatakan lain.
 | `template/laporan_template.docx` | Template Word utama |
 | `template/weekly_report_template.docx` | Template Word weekly report |
 | `template/media/` | Gambar lampiran (auto-extract dari template) |
+| `.agents/skills/laporan-bulanan/scripts/fetch_prs_to_weekly.py` | Auto-fetch raw PR ke weekly_report.md |
+| `.agents/skills/laporan-bulanan/scripts/generate_detail_from_github.py` | Auto-generate detail_github.md dari PR GitHub |
+| `.agents/skills/laporan-bulanan/resources/PROMPT_POLES_WEEKLY.md` | Prompt AI (Cursor) untuk merapikan weekly report |
 
 ---
 
@@ -47,13 +50,13 @@ Edit `input/202608/config.json`: sesuaikan `bulan`, `bulan_up`, `tahun`, `date_r
 
 ### Step 1 – Weekly Report
 
-Isi `input/202608/weekly_report.md` dengan tabel 7 kolom:
+Tarik data PR terbaru (mentah) ke dalam tabel Markdown:
 
-```markdown
-| Weekly Cat | Date Range | Date | Activity | Output | User | Related Doc |
-|---|---|---|---|---|---|---|
-| W1 | 1-7 Agt | 2 Agt | ... | ... | Lutfi | PR #NNN |
+```powershell
+python .agents/skills/laporan-bulanan/scripts/fetch_prs_to_weekly.py 202608
 ```
+
+Gunakan **Prompt AI** (`.agents/skills/laporan-bulanan/resources/PROMPT_POLES_WEEKLY.md`) di dalam IDE Anda (Cursor/Copilot) untuk memoles/merapikan isi `activity` dan `output` pada `weekly_report.md` agar lebih mudah dibaca. Setelah tabelnya rapi, timpa/simpan kembali ke filenya.
 
 Konversi ke DOCX:
 
@@ -63,6 +66,9 @@ python generator/weekly_to_docx.py 202608
 
 ### Step 2 – Detail GitHub
 
+Ada 2 cara yang dapat dilakukan:
+
+**Cara A (Enrichment AI / Klasik):**
 ```powershell
 # Skeleton dari weekly
 python generator/generate_detail_md.py 202608 --from-weekly
@@ -73,8 +79,21 @@ python generator/generate_detail_md.py 202608 --add-prolog
 # Generate prompt AI (untuk Cursor/Copilot)
 python generator/generate_detail_md.py 202608 --prompt
 ```
+Lalu buka `input/202608/prompts/CURSOR_ENRICH_DETAIL.md` dan enrich dengan AI.
 
-Buka `input/202608/prompts/CURSOR_ENRICH_DETAIL.md` dan enrich dengan AI.
+**Cara B (Enrichment Otomatis via Script - Terbaru):**
+Alih-alih menggunakan AI, script ini akan secara otomatis mengisi tag `<!-- ENRICH -->` pada `detail_github.md` dengan placeholder default berdasarkan konteks yang sudah ada. Sangat menghemat waktu!
+```powershell
+# Skeleton dari weekly
+python generator/generate_detail_md.py 202608 --from-weekly
+
+# Tambah prolog per sub-kegiatan
+python generator/generate_detail_md.py 202608 --add-prolog
+
+# Auto-enrich menggunakan script
+python ../.agents/skills/laporan-bulanan/scripts/enrich_auto.py 202608
+```
+Setelah jalan, silakan periksa `detail_github.md` untuk merapikan sedikit jika diperlukan.
 
 ### Step 3 – Generate Laporan
 
@@ -83,6 +102,11 @@ python generator/generate.py 202608
 # Paksa fetch ulang PR:
 python generator/generate.py 202608 --fetch-prs
 ```
+
+**Note Sistem Generator**: 
+- `Lampiran 1 (Weekly Report)` kini diambil murni dari *export* manual yang diletakkan di `input/YYYYMM/YYYYMM_Program dan Data Weekly Report.docx` (berformat *Landscape*).
+- `generate.py` menggunakan pustaka `docxcompose` (dipadukan dengan *Section Break Next Page* kustom) untuk menggabungkan `Dokumen Utama`, `Lampiran 1 (Manual)`, dan `Lampiran 2 (Code Diff)` ke dalam satu *file* utuh tanpa merusak format halamannya (portrait/landscape).
+- Code Diff JSON panjang di- *truncate* max 150 karakter/baris untuk mencegah *freeze* pada Microsoft Word.
 
 Output: `output/202608/Laporan Bulanan_Lutfi Ihsan - Agustus 2026.docx`
 
@@ -105,6 +129,7 @@ Buka di Word -> **Ctrl+A -> F9** untuk update semua field (TOC + nomor halaman).
   "github": {
     "repo": "setditjen-psdkp/api-sip",
     "author": "lutfiihsan",
+    "author_display": "lutfiihsan (Lutfi Ihsan)",
     "date_ranges": ["2026-08-01..2026-08-10", "2026-08-11..2026-08-20", "2026-08-21..2026-08-31"],
     "fetch_if_missing": true,
     "fetch_always": false
